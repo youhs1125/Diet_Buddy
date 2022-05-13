@@ -33,7 +33,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.24"/>
 
-
     <TextView
         android:id="@+id/userInfo"
         android:layout_width="wrap_content"
@@ -53,23 +52,17 @@
         android:text="키"
         android:textSize="25dp"
         android:textStyle="bold"
-
         app:layout_constraintTop_toBottomOf="@+id/heightTop"
         app:layout_constraintLeft_toRightOf="@+id/leftTop"
         />
+
     <EditText
         android:id="@+id/inputHeight"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:background="#FA7543"
-        android:alpha="0.3f"
-
         app:layout_constraintTop_toBottomOf="@+id/heightTop"
         app:layout_constraintLeft_toRightOf="@+id/leftInput"
         />
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
