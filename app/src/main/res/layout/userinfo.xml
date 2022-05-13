@@ -62,11 +62,11 @@
         android:layout_height="wrap_content"
         android:background="#FA7543"
         android:alpha="0.8f"
-
+.
         app:layout_constraintTop_toBottomOf="@+id/heightTop"
         app:layout_constraintLeft_toRightOf="@+id/leftInput"
         />
-    
+
 
 
 
