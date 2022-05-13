@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D4742C"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.Guideline
@@ -62,11 +61,12 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:background="#FA7543"
-        android:alpha="0.3f"
+        android:alpha="0.8f"
 
         app:layout_constraintTop_toBottomOf="@+id/heightTop"
         app:layout_constraintLeft_toRightOf="@+id/leftInput"
         />
+    <
 
 
 
