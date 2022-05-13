@@ -11,6 +11,7 @@
         android:theme="@style/Theme.DietBuddy">
 
         <activity android:name=".MainActivity" />
+        <activity android:name=".UserInfo" />
 
         <activity
             android:name=".splash"
