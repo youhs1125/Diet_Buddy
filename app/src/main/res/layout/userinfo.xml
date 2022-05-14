@@ -9,64 +9,167 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05"/>
+        app:layout_constraintGuide_percent="0.08f"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/heightTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12"/>
+        app:layout_constraintGuide_percent="0.12f"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.12"/>
+        app:layout_constraintGuide_percent="0.1f"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.24"/>
+        app:layout_constraintGuide_percent="0.28f" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/weightTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2f"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ageTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.28f"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/sexTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.36f"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/sexBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.42f"/>
+
 
 
     <TextView
         android:id="@+id/userInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:text="사용자 정보"
         android:textSize="30dp"
+        android:gravity="center"
         android:textStyle="bold"
+        android:fontFamily="@font/buddyfont"
+        android:background="#EBA23D"
+
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/userTop"
         />
     <TextView
         android:id="@+id/heightInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="키"
-        android:textSize="25dp"
+        android:textSize="30dp"
         android:textStyle="bold"
+        android:fontFamily="@font/buddyfont"
 
-        app:layout_constraintTop_toBottomOf="@+id/heightTop"
-        app:layout_constraintLeft_toRightOf="@+id/leftTop"
+
+        app:layout_constraintTop_toTopOf="@+id/heightTop"
+        app:layout_constraintLeft_toLeftOf="@+id/leftTop"
+        app:layout_constraintBottom_toBottomOf="@+id/inputHeight"
         />
+
     <EditText
         android:id="@+id/inputHeight"
+        android:inputType="number"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="#FA7543"
-        android:alpha="0.8f"
-!!
+
+
         app:layout_constraintTop_toBottomOf="@+id/heightTop"
         app:layout_constraintLeft_toRightOf="@+id/leftInput"
         />
-    
+
+    <TextView
+        android:id="@+id/weightInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="체중"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/buddyfont"
+
+
+        app:layout_constraintTop_toTopOf="@+id/weightTop"
+        app:layout_constraintLeft_toRightOf="@+id/leftTop"
+        app:layout_constraintBottom_toBottomOf="@+id/inputWeight"
+        />
+
+    <EditText
+        android:id="@+id/inputWeight"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+
+        app:layout_constraintTop_toBottomOf="@+id/weightTop"
+        app:layout_constraintLeft_toRightOf="@+id/leftInput"
+        />
+
+    <TextView
+        android:id="@+id/agetInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나이 (만)"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/buddyfont"
+
+
+        app:layout_constraintTop_toTopOf="@+id/ageTop"
+        app:layout_constraintLeft_toRightOf="@+id/leftTop"
+        app:layout_constraintBottom_toBottomOf="@+id/ageWeight"
+        />
+
+    <EditText
+        android:id="@+id/ageWeight"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+
+        app:layout_constraintTop_toBottomOf="@+id/ageTop"
+        app:layout_constraintLeft_toRightOf="@+id/leftInput"
+        />
+
+    <TextView
+        android:id="@+id/sextInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="성별"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/buddyfont"
+
+
+        app:layout_constraintTop_toTopOf="@+id/sexTop"
+        app:layout_constraintLeft_toRightOf="@+id/leftTop"
+        app:layout_constraintBottom_toBottomOf="@+id/sexBottom"
+        />
+
 
 
 
