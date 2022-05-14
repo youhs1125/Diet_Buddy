@@ -131,6 +131,7 @@
             android:textSize = "18sp"
             android:textColor="#000000"
             android:textStyle="bold"
+
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="@+id/left4"
             app:layout_constraintLeft_toLeftOf="@+id/left8"/>
@@ -150,20 +151,22 @@
             android:textSize = "13sp"
             android:hint="그램수를 입력하세요"
             android:textStyle="bold"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:inputType="number"
-            android:background="@drawable/dialoginput" />
+            android:background="@drawable/dialoginput"
+            android:fontFamily="@font/buddyfont" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addButton"
             android:layout_width="100dp"
             android:layout_height="25dp"
             android:text="추가"
             android:textStyle="bold"
-            android:textColor="#028bcf"
+            android:textColor="#F6CC34"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/foodok" />
+            android:background="@drawable/foodok"
+            android:fontFamily="@font/buddyfont"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -3,11 +3,16 @@ package com.project.dietbuddy;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -21,6 +26,21 @@ public class MainActivity extends AppCompatActivity {
 
 	EditText search;
 	Button ok;
+	ListView listView;
+
+	ArrayList<String> list;
+	ArrayList<String> list_cal;
+	ArrayList<String> list_carbo;
+	ArrayList<String> list_fat;
+	ArrayList<String> list_pro;
+	ArrayList<String> list_salt;
+	ArrayList<String> list_gram;
+	ArrayList<NutrientItem> items;
+	ArrayAdapter adapter;
+
+	private SharedPreferences preferences;
+	private SharedPreferences.Editor editor;
+	AlertDialog alertDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
 		search = findViewById(R.id.search);
 		ok = findViewById(R.id.ok);
+		listView = findViewById(R.id.list);
+		preferences = getSharedPreferences("PREFS", 0);
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.hide();
@@ -68,5 +90,46 @@ public class MainActivity extends AppCompatActivity {
 				finish();
 			}
 		});
+
+		list = new ArrayList<>();
+		list_cal = new ArrayList<>();
+		list_carbo = new ArrayList<>();
+		list_fat = new ArrayList<>();
+		list_pro = new ArrayList<>();
+		list_salt = new ArrayList<>();
+		list_gram = new ArrayList<>();
+		items = new ArrayList<>();
+		adapter = new NutrientItemAdapter(this, R.layout.activity_nutrient_item_adapter, items);
+
+		if (preferences.getStringSet("foodgram", null) != null) {
+			list.addAll(preferences.getStringSet("food", null));
+			list_cal.addAll(preferences.getStringSet("foodcal", null));
+			list_carbo.addAll(preferences.getStringSet("foodcarbo", null));
+			list_pro.addAll(preferences.getStringSet("foodpro", null));
+			list_fat.addAll(preferences.getStringSet("foodfat", null));
+			list_salt.addAll(preferences.getStringSet("foodsalt", null));
+			list_gram.addAll(preferences.getStringSet("foodgram", null));
+			int counter = 0;
+			for(String i : list){
+				String[] title = i.split(",");
+
+				String[] gram = list_gram.get(counter).split(",");
+				items.add(new NutrientItem(title[0], gram[1] + "g"));
+				counter++;
+			}
+		}
+		else{
+			listView.setBackgroundResource(R.drawable.listblank);
+		}
+		listView.invalidateViews();
+		listView.setAdapter(adapter);
+		if(list.isEmpty()){
+			listView.setBackgroundResource(R.drawable.listblank);
+			listView.invalidateViews();
+		}
+		else{
+			listView.setBackgroundColor(Color.argb(0, 235,239,242));
+			listView.invalidateViews();
+		}
 	}
 }

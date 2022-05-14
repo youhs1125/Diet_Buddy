@@ -12,8 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DietBuddy">
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".UserInfo" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
+        <activity
+            android:name=".UserInfo"
+            android:windowSoftInputMode="adjustResize|adjustPan"/>
         <activity android:name=".foodsearch" />
 
         <activity

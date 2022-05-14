@@ -9,15 +9,18 @@
         android:layout_height="60dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:background="@drawable/foodlist">
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textColor="#000000"
-            android:textSize="15dp" />
+            android:textColor="#E6B837"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/buddyfont"/>
 
         <View
             android:layout_width="0dp"
@@ -31,8 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textColor="#000000"
-            android:textSize="15dp" />
+            android:textColor="#E6B837"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/buddyfont"/>
 
     </LinearLayout>
 

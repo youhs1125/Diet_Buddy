@@ -39,7 +39,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35"/>
+        app:layout_constraintGuide_percent="0.352"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/list_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/list_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barchart"
@@ -67,5 +81,17 @@
         app:layout_constraintTop_toTopOf="@+id/search"
         app:layout_constraintBottom_toBottomOf="@+id/search"
         app:layout_constraintEnd_toEndOf="@+id/search"/>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@+id/list_top"
+        app:layout_constraintBottom_toBottomOf="@+id/list_bottom"
+        app:layout_constraintLeft_toLeftOf="@+id/left"
+        app:layout_constraintRight_toRightOf="@+id/right"
+        android:divider="@null"
+        android:listSelector="@drawable/foodlist_selected"
+        android:cacheColorHint="@null"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
