@@ -9,56 +9,82 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08f"/>
+        app:layout_constraintGuide_percent="0.08"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/heightTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12f"/>
+        app:layout_constraintGuide_percent="0.12"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1f"/>
+        app:layout_constraintGuide_percent="0.1"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.28f" />
+        app:layout_constraintGuide_percent="0.28" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/manRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/womanLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.46" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/womanRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.58" />
+
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/weightTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2f"/>
+        app:layout_constraintGuide_percent="0.2"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/ageTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.28f"/>
+        app:layout_constraintGuide_percent="0.28"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/sexTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.36f"/>
+        app:layout_constraintGuide_percent="0.36"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/sexBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42f"/>
+        app:layout_constraintGuide_percent="0.42"/>
+
+
 
 
 
@@ -168,6 +194,32 @@
         app:layout_constraintTop_toTopOf="@+id/sexTop"
         app:layout_constraintLeft_toRightOf="@+id/leftTop"
         app:layout_constraintBottom_toBottomOf="@+id/sexBottom"
+        />
+
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/manButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/man"
+
+        app:layout_constraintTop_toTopOf="@+id/sexTop"
+        app:layout_constraintBottom_toBottomOf="@+id/sexBottom"
+        app:layout_constraintLeft_toLeftOf="@+id/leftInput"
+        app:layout_constraintRight_toRightOf="@+id/manRight"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/womanButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/woman"
+
+        app:layout_constraintTop_toTopOf="@+id/sexTop"
+        app:layout_constraintBottom_toBottomOf="@+id/sexBottom"
+        app:layout_constraintLeft_toLeftOf="@+id/womanLeft"
+        app:layout_constraintRight_toRightOf="@+id/womanRight"
         />
 
 
