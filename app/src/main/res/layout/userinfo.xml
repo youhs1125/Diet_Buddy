@@ -191,8 +191,6 @@
         android:inputType="numberDecimal"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-
-
         app:layout_constraintTop_toBottomOf="@+id/heightTop"
         app:layout_constraintLeft_toRightOf="@+id/leftInput"
         />
