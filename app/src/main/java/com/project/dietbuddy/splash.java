@@ -31,7 +31,7 @@ public class splash extends AppCompatActivity implements LifecycleObserver {
 		Handler handler=new Handler();
 		handler.postDelayed(new Runnable(){
 			public void run(){
-				startActivity(new Intent(getApplicationContext(), MainActivity.class));
+				startActivity(new Intent(getApplicationContext(), UserInfo.class));
 				finish();
 			}
 		},1000);
