@@ -2,6 +2,7 @@ package com.project.dietbuddy;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -19,117 +20,65 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedHashSet;
 
 public class MainActivity extends AppCompatActivity {
 
-	EditText search;
-	Button ok;
-	ListView listView;
-
-	ArrayList<String> list;
-	ArrayList<String> list_cal;
-	ArrayList<String> list_carbo;
-	ArrayList<String> list_fat;
-	ArrayList<String> list_pro;
-	ArrayList<String> list_salt;
-	ArrayList<String> list_gram;
-	ArrayList<NutrientItem> items;
-	ArrayAdapter adapter;
-
-	private SharedPreferences preferences;
-	private SharedPreferences.Editor editor;
-	AlertDialog alertDialog;
+	Fragment fragment0, fragment1, fragment2, fragment3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		search = findViewById(R.id.search);
-		ok = findViewById(R.id.ok);
-		listView = findViewById(R.id.list);
-		preferences = getSharedPreferences("PREFS", 0);
-
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.hide();
 
-		BarChart barChart = (BarChart) findViewById(R.id.barchart);
+		fragment0 = new fragmentgraph();
+		fragment1 = new fragmentrecommand();
+		fragment2 = new fragmentinfo();
 
-		ArrayList<BarEntry> entries = new ArrayList<>();
-		entries.add(new BarEntry(8f, 0));
-		entries.add(new BarEntry(2f, 1));
-		entries.add(new BarEntry(5f, 2));
-		entries.add(new BarEntry(20f, 3));
-		entries.add(new BarEntry(15f, 4));
-		entries.add(new BarEntry(19f, 5));
+		getSupportFragmentManager().beginTransaction().add(R.id.frame, fragment0).commit();
 
-		BarDataSet bardataset = new BarDataSet(entries, "Cells");
+		TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
 
-		ArrayList<String> labels = new ArrayList<String>();
-		labels.add("2016");
-		labels.add("2015");
-		labels.add("2014");
-		labels.add("2013");
-		labels.add("2012");
-		labels.add("2011");
-
-		BarData data = new BarData(labels, bardataset);
-		barChart.setData(data); // set the data and list of labels into chart
-		barChart.setDescription("Set Bar Chart Description Here");  // set the description
-		bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
-		barChart.animateY(5000);
-
-		ok.setOnClickListener(new View.OnClickListener() {
+		tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, foodsearch.class);
-				intent.putExtra("searchFor", search.getText().toString());
-				startActivity(intent);
-				finish();
+			public void onTabSelected(TabLayout.Tab tab) {
+
+				int position = tab.getPosition();
+
+				Fragment selected = null;
+				if(position == 0){
+
+					selected = fragment0;
+
+				}else if (position == 1){
+
+					selected = fragment1;
+
+				}else if (position == 2) {
+
+					selected = fragment2;
+
+				}
+
+				getSupportFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
+			}
+
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+
 			}
 		});
-
-		list = new ArrayList<>();
-		list_cal = new ArrayList<>();
-		list_carbo = new ArrayList<>();
-		list_fat = new ArrayList<>();
-		list_pro = new ArrayList<>();
-		list_salt = new ArrayList<>();
-		list_gram = new ArrayList<>();
-		items = new ArrayList<>();
-		adapter = new NutrientItemAdapter(this, R.layout.activity_nutrient_item_adapter, items);
-
-		if (preferences.getStringSet("foodgram", null) != null) {
-			list.addAll(preferences.getStringSet("food", null));
-			list_cal.addAll(preferences.getStringSet("foodcal", null));
-			list_carbo.addAll(preferences.getStringSet("foodcarbo", null));
-			list_pro.addAll(preferences.getStringSet("foodpro", null));
-			list_fat.addAll(preferences.getStringSet("foodfat", null));
-			list_salt.addAll(preferences.getStringSet("foodsalt", null));
-			list_gram.addAll(preferences.getStringSet("foodgram", null));
-			int counter = 0;
-			for(String i : list){
-				String[] title = i.split(",");
-
-				String[] gram = list_gram.get(counter).split(",");
-				items.add(new NutrientItem(title[0], gram[1] + "g"));
-				counter++;
-			}
-		}
-		else{
-			listView.setBackgroundResource(R.drawable.listblank);
-		}
-		listView.invalidateViews();
-		listView.setAdapter(adapter);
-		if(list.isEmpty()){
-			listView.setBackgroundResource(R.drawable.listblank);
-			listView.invalidateViews();
-		}
-		else{
-			listView.setBackgroundColor(Color.argb(0, 235,239,242));
-			listView.invalidateViews();
-		}
 	}
 }
