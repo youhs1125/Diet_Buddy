@@ -144,6 +144,7 @@ public class foodsearch extends AppCompatActivity {
 				LinkedHashSet<String> set_gram = new LinkedHashSet<>();
 
 				String _title = searchlist.get(a_position).toString();
+				String _cal = searchlist_cal.get(a_position).toString();
 				String _carbo = searchlist_carbo.get(a_position).toString();
 				String _pro = searchlist_pro.get(a_position).toString();
 				String _fat = searchlist_fat.get(a_position).toString();
@@ -208,7 +209,18 @@ public class foodsearch extends AppCompatActivity {
 							set_gram.addAll(list_gram);
 							set_gram.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_gram.get(a_position).toString()) * multiply * 100) / 100));
 
-							System.out.println("순살 닭가슴살의 list" + set_fat.size());
+							int prefoodcal = (int)(Double.parseDouble(_cal) + Double.parseDouble(preferences.getString("foodcalint", "0")));
+							int prefoodcarbo = (int)(Double.parseDouble(_carbo) + Double.parseDouble(preferences.getString("foodcarboint", "0")));
+							int prefoodpro = (int)(Double.parseDouble(_pro) + Double.parseDouble(preferences.getString("foodproint", "0")));
+							int prefoodfat = (int)(Double.parseDouble(_fat) + Double.parseDouble(preferences.getString("foodfatint", "0")));
+
+							editor.putString("foodint", _title);
+							editor.putString("foodcalint", String.valueOf(prefoodcal));
+							editor.putString("foodcarboint", String.valueOf(prefoodcarbo));
+							editor.putString("foodproint", String.valueOf(prefoodpro));
+							editor.putString("foodfatint", String.valueOf(prefoodfat));
+							editor.putString("foodsaltint", _salt);
+							editor.putString("foodgramint", _gram);
 
 							editor.putStringSet("food", set);
 							editor.putStringSet("foodcal", set_cal);

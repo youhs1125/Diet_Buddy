@@ -14,7 +14,6 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -70,13 +69,12 @@ public class fragmentgraph extends Fragment {
 
 		day_reset = preferences.getInt("day", 0);
 		if (day != day_reset) {
-			LinkedHashSet<String> set = new LinkedHashSet<String>();
-			editor.putStringSet("food", set);
-			editor.putStringSet("foodcal", set);
-			editor.putStringSet("foodcarbo", set);
-			editor.putStringSet("foodpro", set);
-			editor.putStringSet("foodfat", set);
-			editor.putStringSet("foodsalt", set);
+			editor.putString("food", "0");
+			editor.putString("foodcal", "0");
+			editor.putString("foodcarbo", "0");
+			editor.putString("foodpro", "0");
+			editor.putString("foodfat", "0");
+			editor.putString("foodsalt", "0");
 			editor.putInt("day", day);
 			editor.commit();
 		}
@@ -114,15 +112,6 @@ public class fragmentgraph extends Fragment {
 
 				String[] gram = list_gram.get(counter).split(",");
 				items.add(new NutrientItem(title[0], gram[1] + "g"));
-
-				String[] lcal = list_cal.get(counter).split(",");
-				String[] lcarbo = list_carbo.get(counter).split(",");
-				String[] lpro = list_pro.get(counter).split(",");
-				String[] lfat = list_fat.get(counter).split(",");
-				cal += Double.parseDouble(lcal[1]);
-				carbo += Double.parseDouble(lcarbo[1]);
-				pro += Double.parseDouble(lpro[1]);
-				fat += Double.parseDouble(lfat[1]);
 				counter++;
 			}
 		}
@@ -143,6 +132,10 @@ public class fragmentgraph extends Fragment {
 		BarChart barChart = (BarChart) view.findViewById(R.id.barchart);
 
 		ArrayList<BarEntry> entries = new ArrayList<>();
+		cal = Integer.parseInt(preferences.getString("foodcalint", "0"));
+		carbo = Integer.parseInt(preferences.getString("foodcarboint", "0"));
+		pro = Integer.parseInt(preferences.getString("foodproint", "0"));
+		fat = Integer.parseInt(preferences.getString("foodfatint", "0"));
 		entries.add(new BarEntry(cal, 0));
 		entries.add(new BarEntry(carbo, 1));
 		entries.add(new BarEntry(pro, 2));
