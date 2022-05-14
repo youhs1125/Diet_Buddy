@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/dialogback">
+
+    <TextView
+        android:id="@+id/titleInd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="신라면"
+        android:textSize = "20sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6"/>
+
+        <TextView
+            android:id="@+id/carboInd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탄  10g"
+            android:textSize = "18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/left"
+            app:layout_constraintRight_toRightOf="@+id/left5"/>
+
+        <TextView
+            android:id="@+id/proInd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="단  20g"
+            android:textSize = "18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/left2"
+            app:layout_constraintLeft_toLeftOf="@+id/left6"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6"/>
+
+        <TextView
+            android:id="@+id/fatInd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지  15g"
+            android:textSize = "18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/left3"
+            app:layout_constraintRight_toRightOf="@+id/left7"/>
+
+        <TextView
+            android:id="@+id/saltInd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="염  1.300g"
+            android:textSize = "18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/left4"
+            app:layout_constraintLeft_toLeftOf="@+id/left8"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editInd"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
+            android:textSize = "13sp"
+            android:hint="그램수를 입력하세요"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:background="@drawable/dialoginput" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:text="추가"
+            android:textStyle="bold"
+            android:textColor="#028bcf"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/foodok" />
+    </LinearLayout>
+
+</LinearLayout>

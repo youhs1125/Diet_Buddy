@@ -3,7 +3,11 @@ package com.project.dietbuddy;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -15,10 +19,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+	EditText search;
+	Button ok;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		search = findViewById(R.id.search);
+		ok = findViewById(R.id.ok);
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.hide();
@@ -49,5 +59,14 @@ public class MainActivity extends AppCompatActivity {
 		bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
 		barChart.animateY(5000);
 
+		ok.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, foodsearch.class);
+				intent.putExtra("searchFor", search.getText().toString());
+				startActivity(intent);
+				finish();
+			}
+		});
 	}
 }
