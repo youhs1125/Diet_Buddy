@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".loseWeight">
+    tools:context=".maintainWeight">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="match_parent">
+
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/weekTop"
+            android:id="@+id/butTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.03"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/weightTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.17"/>
+            app:layout_constraintGuide_percent="0.23"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/calTop"
@@ -75,31 +69,15 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.4"/>
 
-        <TextView
-            android:id="@+id/week"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/calLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="목표기간"
-            android:textStyle="bold"
-            android:fontFamily="@font/buddyfont"
-            android:textSize="25dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.73"/>
 
-            app:layout_constraintTop_toTopOf="@+id/weekTop"
-            app:layout_constraintLeft_toLeftOf="@+id/textLeft"
-            />
 
-        <TextView
-            android:id="@+id/weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="목표체중"
-            android:textStyle="bold"
-            android:fontFamily="@font/buddyfont"
-            android:textSize="25dp"
 
-            app:layout_constraintTop_toTopOf="@+id/weightTop"
-            app:layout_constraintLeft_toLeftOf="@+id/textLeft"
-            />
 
         <TextView
             android:id="@+id/calories"
@@ -179,28 +157,20 @@
             />
 
 
-
-        <EditText
-            android:id="@+id/inputWeek"
-            android:inputType="numberDecimal"
-            android:layout_width="100dp"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/calButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/buddyfont"
+            android:text="계산"
+            android:textSize="20dp"
 
-            app:layout_constraintTop_toBottomOf="@+id/weekTop"
-            app:layout_constraintLeft_toRightOf="@+id/inputLeft"
-            app:layout_constraintBottom_toBottomOf="@+id/week"
+            app:layout_constraintTop_toTopOf="@+id/butTop"
+            app:layout_constraintLeft_toLeftOf="@+id/calLeft"
+
             />
 
-        <EditText
-            android:id="@+id/inputWeight"
-            android:inputType="numberDecimal"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
 
-            app:layout_constraintTop_toBottomOf="@+id/weightTop"
-            app:layout_constraintLeft_toRightOf="@+id/inputLeft"
-            app:layout_constraintBottom_toBottomOf="@+id/weight"
-            />
 
         <EditText
             android:id="@+id/inputCarbo"

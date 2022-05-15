@@ -40,11 +40,32 @@
         app:layout_constraintGuide_percent="0.46" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fatLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/womanRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.58" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ratioLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.73" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fatCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.87" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/okLeft"
@@ -175,7 +196,7 @@
         android:id="@+id/heightInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="키"
+        android:text="키(cm)"
         android:textSize="30dp"
         android:textStyle="bold"
         android:fontFamily="@font/buddyfont"
@@ -199,7 +220,7 @@
         android:id="@+id/weightInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="체중"
+        android:text="체중(kg)"
         android:textSize="30dp"
         android:textStyle="bold"
         android:fontFamily="@font/buddyfont"
@@ -221,7 +242,32 @@
         />
 
     <TextView
-        android:id="@+id/agetInfo"
+        android:id="@+id/fatRatioInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="체지방률(%)"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/buddyfont"
+
+
+        app:layout_constraintTop_toTopOf="@+id/weightTop"
+        app:layout_constraintLeft_toLeftOf="@+id/fatLeft"
+        app:layout_constraintBottom_toBottomOf="@+id/inputfatRatio"
+        />
+
+    <EditText
+        android:id="@+id/inputfatRatio"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+
+        app:layout_constraintTop_toBottomOf="@+id/weightTop"
+        app:layout_constraintLeft_toRightOf="@+id/ratioLeft"
+        />
+
+    <TextView
+        android:id="@+id/ageInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="나이 (만)"
@@ -232,17 +278,31 @@
 
         app:layout_constraintTop_toTopOf="@+id/ageTop"
         app:layout_constraintLeft_toRightOf="@+id/leftTop"
-        app:layout_constraintBottom_toBottomOf="@+id/ageWeight"
+        app:layout_constraintBottom_toBottomOf="@+id/inputAge"
         />
 
     <EditText
-        android:id="@+id/ageWeight"
+        android:id="@+id/inputAge"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="number"
 
         app:layout_constraintTop_toBottomOf="@+id/ageTop"
         app:layout_constraintLeft_toRightOf="@+id/leftInput"
+        />
+
+    <TextView
+        android:id="@+id/fatInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모르면 비우세요"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/buddyfont"
+
+
+        app:layout_constraintLeft_toLeftOf="@+id/fatLeft"
+        app:layout_constraintBottom_toTopOf="@+id/ageTop"
         />
 
     <TextView
