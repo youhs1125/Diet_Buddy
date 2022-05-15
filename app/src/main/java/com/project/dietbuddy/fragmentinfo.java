@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
@@ -22,7 +21,7 @@ public class fragmentinfo extends Fragment {
 
 	Fragment loseWeight,maintainWeight,bulkUp;
 	public int sex;
-	public int flag;
+	public Boolean flag;
 	public double height;
 	public double weight;
 	public double ratio;
@@ -40,12 +39,10 @@ public class fragmentinfo extends Fragment {
 	SharedPreferences preferences;
 	SharedPreferences.Editor editor;
 
-
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_info, container, false);
-
 
 		EditText inputHeight = (EditText) view.findViewById(R.id.inputHeight);
 		EditText inputWeight = (EditText) view.findViewById(R.id.inputWeight);
@@ -56,6 +53,9 @@ public class fragmentinfo extends Fragment {
 		Button femaleBut = (Button) view.findViewById(R.id.womanButton);
 		Button dialogBut = (Button) view.findViewById(R.id.select);
 		Button okBut = (Button)view.findViewById(R.id.okButton);
+
+		flag = false;
+
 
 //버튼 이벤트
 
@@ -85,15 +85,14 @@ public class fragmentinfo extends Fragment {
 				AlertDialog.Builder dlg = new AlertDialog.Builder(getActivity());
 				System.out.println(dlg);
 				dlg.setTitle("평소 활동량을 골라주세요");
-				final String[] strArr = new String[]{"1.거의 운동 하지 않음","2.가벼운 활동(주 1~2회)","3.보통 수준(주 3~5)",
-						"4.적극적으로 운동(주 6~7회)","5.고강도로 운동(주 6~7회)"};
+				final String[] strArr = new String[]{"거의 운동 하지 않음","가벼운 활동(주 1~2회)","보통 수준(주 3~5)",
+						"적극적으로 운동(주 6~7회)","고강도로 운동(주 6~7회)"};
 
 
 				dlg.setSingleChoiceItems(strArr,0,new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int which){
 						acti = which;
-						dialogBut.setText(""+(acti+1)+"번");
 					}
 				});
 				dlg.setPositiveButton("선택",new DialogInterface.OnClickListener(){
@@ -108,9 +107,9 @@ public class fragmentinfo extends Fragment {
 		preferences = getActivity().getSharedPreferences("PREFS",0);
 		editor = preferences.edit();
 
-		flag = preferences.getInt("cal",-1);
+		flag = preferences.getBoolean("cal",false);
 
-		if(flag == 0){
+		if(flag){
 			String temp;
 			height = Double.parseDouble(inputHeight.getText().toString());
 			weight = Double.parseDouble(inputWeight.getText().toString());
@@ -143,8 +142,6 @@ public class fragmentinfo extends Fragment {
 				case 4: totalCal*=1.9f;
 			}
 
-			totalCal -= goal*7700/week;
-
 //			탄단지 분배 35 30 35
 			carb = (int)(totalCal*0.35/4);
 			protein = (int)(totalCal*0.3/4);
@@ -156,7 +153,7 @@ public class fragmentinfo extends Fragment {
 			editor.putInt("fat",fat);
 
 			editor.commit();
-			flag = -1;
+			flag = false;
 		}
 
 
@@ -165,8 +162,10 @@ public class fragmentinfo extends Fragment {
 		maintainWeight = new maintainWeight();
 		bulkUp = new bulkUp();
 
-		getChildFragmentManager().beginTransaction().add(R.id.frame, loseWeight).commit();
+		//
 		TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
+		getChildFragmentManager().beginTransaction().add(R.id.frame, loseWeight).commit();
+		
 		tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
@@ -179,14 +178,17 @@ public class fragmentinfo extends Fragment {
 				}else if (position == 2){
 					selected = bulkUp;
 				}
+
 				getChildFragmentManager().beginTransaction().replace(R.id.frame, selected).commit();
 			}
 			@Override
 			public void onTabUnselected(TabLayout.Tab tab) {
+
 			}
 			@Override
 			public void onTabReselected(TabLayout.Tab tab) {
 			}
+
 		});
 		return view;
 	}
