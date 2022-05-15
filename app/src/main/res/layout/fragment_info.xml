@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusableInTouchMode="true"
+    >
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/userTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.08"/>
 
@@ -153,24 +155,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.95"/>
 
-
-    <TextView
-        android:id="@+id/userInfo"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="사용자 정보"
-        android:textSize="30dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:fontFamily="@font/buddyfont"
-        android:background="#EBA23D"
-
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/userTop"
-        />
     <TextView
         android:id="@+id/heightInfo"
         android:layout_width="wrap_content"
@@ -380,8 +364,8 @@
 
     <FrameLayout
         android:id="@+id/frame"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/tabs"
 
         app:layout_constraintTop_toTopOf="@+id/goalTabBottom"

@@ -47,7 +47,7 @@ public class loseWeight extends Fragment{
         calBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editor.putBoolean("cal",true);
+                editor.putInt("cal",0);
                 editor.putString("week",inputWeek.getText().toString());
                 editor.putString("goal",inputGoal.getText().toString());
 
