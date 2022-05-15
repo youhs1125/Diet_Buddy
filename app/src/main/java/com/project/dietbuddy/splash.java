@@ -13,10 +13,6 @@ import android.provider.Settings.Secure;
 
 public class splash extends AppCompatActivity implements LifecycleObserver {
 
-	private String android_id;
-	private ImageView load;
-	private int userIdType = 0;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,7 +27,7 @@ public class splash extends AppCompatActivity implements LifecycleObserver {
 		Handler handler=new Handler();
 		handler.postDelayed(new Runnable(){
 			public void run(){
-				startActivity(new Intent(getApplicationContext(), UserInfo.class));
+				startActivity(new Intent(getApplicationContext(), MainActivity.class));
 				finish();
 			}
 		},1000);
