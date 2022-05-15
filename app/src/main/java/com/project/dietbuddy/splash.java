@@ -1,6 +1,7 @@
 package com.project.dietbuddy;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -13,10 +14,16 @@ import android.provider.Settings.Secure;
 
 public class splash extends AppCompatActivity implements LifecycleObserver {
 
+	String flag;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash);
+
+		SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+
+		flag = preferences.getString("isFirst", "1");
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.hide();
@@ -27,8 +34,14 @@ public class splash extends AppCompatActivity implements LifecycleObserver {
 		Handler handler=new Handler();
 		handler.postDelayed(new Runnable(){
 			public void run(){
-				startActivity(new Intent(getApplicationContext(), MainActivity.class));
-				finish();
+				if(flag == "0"){
+					startActivity(new Intent(getApplicationContext(), MainActivity.class));
+					finish();
+				}
+				else{
+					startActivity(new Intent(getApplicationContext(), UserInfo.class));
+					finish();
+				}
 			}
 		},1000);
 	}
