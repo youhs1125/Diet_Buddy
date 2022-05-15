@@ -17,7 +17,7 @@
             android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity
             android:name=".UserInfo"
-            android:windowSoftInputMode="adjustResize/>
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".foodsearch" />
 
         <activity

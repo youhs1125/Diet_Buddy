@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,6 +65,7 @@ public class UserInfo extends AppCompatActivity {
 		{
 			@Override
 			public void onClick(View view){
+				System.out.println("man");
 				maleBut.setBackgroundResource(R.drawable.mangray);
 				femaleBut.setBackgroundResource(R.drawable.woman);
 				sex = 1;
