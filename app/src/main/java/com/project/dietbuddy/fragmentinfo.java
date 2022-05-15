@@ -165,7 +165,7 @@ public class fragmentinfo extends Fragment {
 		//
 		TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
 		getChildFragmentManager().beginTransaction().add(R.id.frame, loseWeight).commit();
-		
+
 		tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
