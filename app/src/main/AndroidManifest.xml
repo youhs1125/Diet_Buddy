@@ -21,6 +21,15 @@
 
         <activity android:name=".foodsearch" />
 
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".MyNewIntentService"
+            android:exported="false" />
+
         <activity
             android:name=".splash"
             android:exported="true">

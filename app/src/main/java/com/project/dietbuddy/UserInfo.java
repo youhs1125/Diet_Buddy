@@ -72,19 +72,19 @@ public class UserInfo extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				if(inputHeight.getText().toString().equals("")){
-					Toast.makeText(getApplicationContext(), "키를 입력해 주세요.", Toast.LENGTH_LONG);
+					Toast.makeText(getApplicationContext(), "키를 입력해 주세요.", Toast.LENGTH_LONG).show();
 				}
 				else if(inputWeight.getText().toString().equals("")){
-					Toast.makeText(getApplicationContext(), "몸무게를 입력해 주세요.", Toast.LENGTH_LONG);
+					Toast.makeText(getApplicationContext(), "몸무게를 입력해 주세요.", Toast.LENGTH_LONG).show();
 				}
 				else if(inputAge.getText().toString().equals("")){
-					Toast.makeText(getApplicationContext(), "나이를 입력해 주세요.", Toast.LENGTH_LONG);
+					Toast.makeText(getApplicationContext(), "나이를 입력해 주세요.", Toast.LENGTH_LONG).show();
 				}
 				else if(inputRatio.getText().toString().equals("")){
-					Toast.makeText(getApplicationContext(), "운동 빈도를 입력해 주세요.", Toast.LENGTH_LONG);
+					Toast.makeText(getApplicationContext(), "운동 빈도를 입력해 주세요.", Toast.LENGTH_LONG).show();
 				}
 				else if(sex == -1){
-					Toast.makeText(getApplicationContext(), "성별을 입력해 주세요.", Toast.LENGTH_LONG);
+					Toast.makeText(getApplicationContext(), "성별을 입력해 주세요.", Toast.LENGTH_LONG).show();
 				}
 				else {
 					startActivity(new Intent(getApplicationContext(), MainActivity.class));
