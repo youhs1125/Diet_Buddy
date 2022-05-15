@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -64,6 +65,10 @@ public class foodsearch extends AppCompatActivity {
 	boolean flag;
 	AlertDialog alertDialog;
 
+	int y;
+	int m;
+	int dd;
+
 	private ArrayList<NutrientItem> searchListNewLayout;
 
 	private SharedPreferences preferences;
@@ -82,6 +87,12 @@ public class foodsearch extends AppCompatActivity {
 
 		preferences = getSharedPreferences("PREFS", 0);
 		editor = preferences.edit();
+
+		String date = preferences.getString("calendar_date", "0-0-0");
+		String[] now_date = date.split("-");
+		y = Integer.parseInt(now_date[0]);
+		m = Integer.parseInt(now_date[1]);
+		dd = Integer.parseInt(now_date[2]);
 
 		list = new ArrayList<>();
 		list_cal = new ArrayList<>();
@@ -185,13 +196,13 @@ public class foodsearch extends AppCompatActivity {
 							multiply = Double.parseDouble(input.getText().toString()) / Double.parseDouble(_gram);
 							System.out.println("곱해지는 값" + multiply);
 
-							list.addAll(preferences.getStringSet("food", default_set));
-							list_cal.addAll(preferences.getStringSet("foodcal", default_set));
-							list_carbo.addAll(preferences.getStringSet("foodcarbo", default_set));
-							list_pro.addAll(preferences.getStringSet("foodpro", default_set));
-							list_fat.addAll(preferences.getStringSet("foodfat", default_set));
-							list_salt.addAll(preferences.getStringSet("foodsalt", default_set));
-							list_gram.addAll(preferences.getStringSet("foodgram", default_set));
+							list.addAll(preferences.getStringSet("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
+							list_cal.addAll(preferences.getStringSet("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
+							list_carbo.addAll(preferences.getStringSet("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
+							list_pro.addAll(preferences.getStringSet("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
+							list_fat.addAll(preferences.getStringSet("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
+							list_salt.addAll(preferences.getStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
+							list_gram.addAll(preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
 
 							//중복되는 set은 저장될 때 중복저장 안됨 따라서 Title + 값으로 해야함.
 							set.addAll(list);
@@ -209,26 +220,26 @@ public class foodsearch extends AppCompatActivity {
 							set_gram.addAll(list_gram);
 							set_gram.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_gram.get(a_position).toString()) * multiply * 100) / 100));
 
-							int prefoodcal = (int)(Double.parseDouble(_cal) + Double.parseDouble(preferences.getString("foodcalint", "0")));
-							int prefoodcarbo = (int)(Double.parseDouble(_carbo) + Double.parseDouble(preferences.getString("foodcarboint", "0")));
-							int prefoodpro = (int)(Double.parseDouble(_pro) + Double.parseDouble(preferences.getString("foodproint", "0")));
-							int prefoodfat = (int)(Double.parseDouble(_fat) + Double.parseDouble(preferences.getString("foodfatint", "0")));
+							int prefoodcal = (int)(Double.parseDouble(_cal) + Double.parseDouble(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), "0")));
+							int prefoodcarbo = (int)(Double.parseDouble(_carbo) + Double.parseDouble(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), "0")));
+							int prefoodpro = (int)(Double.parseDouble(_pro) + Double.parseDouble(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), "0")));
+							int prefoodfat = (int)(Double.parseDouble(_fat) + Double.parseDouble(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), "0")));
 
-							editor.putString("foodint", _title);
-							editor.putString("foodcalint", String.valueOf(prefoodcal));
-							editor.putString("foodcarboint", String.valueOf(prefoodcarbo));
-							editor.putString("foodproint", String.valueOf(prefoodpro));
-							editor.putString("foodfatint", String.valueOf(prefoodfat));
-							editor.putString("foodsaltint", _salt);
-							editor.putString("foodgramint", _gram);
+							editor.putString("foodint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), _title);
+							editor.putString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), String.valueOf(prefoodcal));
+							editor.putString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), String.valueOf(prefoodcarbo));
+							editor.putString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), String.valueOf(prefoodpro));
+							editor.putString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), String.valueOf(prefoodfat));
+							editor.putString("foodsaltint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), _salt);
+							editor.putString("foodgramint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), _gram);
 
-							editor.putStringSet("food", set);
-							editor.putStringSet("foodcal", set_cal);
-							editor.putStringSet("foodcarbo", set_carbo);
-							editor.putStringSet("foodpro", set_pro);
-							editor.putStringSet("foodfat", set_fat);
-							editor.putStringSet("foodsalt", set_salt);
-							editor.putStringSet("foodgram", set_gram);
+							editor.putStringSet("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set);
+							editor.putStringSet("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_cal);
+							editor.putStringSet("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_carbo);
+							editor.putStringSet("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_pro);
+							editor.putStringSet("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_fat);
+							editor.putStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_salt);
+							editor.putStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_gram);
 							editor.commit();
 							alertDialog.dismiss();
 							startActivity(new Intent(foodsearch.this, MainActivity.class));
