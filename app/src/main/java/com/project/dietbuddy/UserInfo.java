@@ -2,6 +2,7 @@ package com.project.dietbuddy;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,12 @@ public class UserInfo extends AppCompatActivity {
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.hide();
+
+		preferences = getSharedPreferences("PREFS",0);
+		editor = preferences.edit();
+
+		editor.putString("isFirst", "0");
+		editor.commit();
 //값 입력
 		EditText inputHeight = (EditText) findViewById(R.id.inputHeight);
 		EditText inputWeight = (EditText) findViewById(R.id.inputWeight);
@@ -57,9 +64,34 @@ public class UserInfo extends AppCompatActivity {
 		Button okBut = (Button)findViewById(R.id.okButton);
 
 		flag = false;
-
+		sex = -1;
 
 //버튼 이벤트
+
+		okBut.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(inputHeight.getText().toString().equals("")){
+					Toast.makeText(getApplicationContext(), "키를 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(inputWeight.getText().toString().equals("")){
+					Toast.makeText(getApplicationContext(), "몸무게를 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(inputAge.getText().toString().equals("")){
+					Toast.makeText(getApplicationContext(), "나이를 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(inputRatio.getText().toString().equals("")){
+					Toast.makeText(getApplicationContext(), "운동 빈도를 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(sex == -1){
+					Toast.makeText(getApplicationContext(), "성별을 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else {
+					startActivity(new Intent(getApplicationContext(), MainActivity.class));
+					finish();
+				}
+			}
+		});
 
 		maleBut.setOnClickListener(new View.OnClickListener()
 		{
@@ -105,9 +137,6 @@ public class UserInfo extends AppCompatActivity {
 				dlg.show();
 			}
 		});
-
-		preferences = getSharedPreferences("PREFS",0);
-		editor = preferences.edit();
 
 		flag = preferences.getBoolean("cal",false);
 
