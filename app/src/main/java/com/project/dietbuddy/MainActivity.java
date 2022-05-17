@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 	Fragment fragment0, fragment1, fragment2, fragment3;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 		fragment0 = new fragmentgraph();
 		fragment1 = new fragmentrecommand();
 		fragment2 = new fragmentinfo();
+
 
 		getSupportFragmentManager().beginTransaction().add(R.id.frame, fragment0).commit();
 

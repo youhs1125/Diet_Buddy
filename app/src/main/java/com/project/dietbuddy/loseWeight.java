@@ -8,21 +8,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class loseWeight extends Fragment{
-    public int week;
     public int totalCal;
     public int carb;
     public int protein;
     public int fat;
-
+    public int week;
     public double goal;
+    public boolean flag;
+
     public SharedPreferences preferences;
     public SharedPreferences.Editor editor;
+
+    TextView calView;
+    EditText inputCarb;
+    EditText inputProtein;
+    EditText inputFat;
+
+
 
     @Nullable
     @Override
@@ -31,29 +40,59 @@ public class loseWeight extends Fragment{
 
         EditText inputWeek = view.findViewById(R.id.inputWeek);
         EditText inputGoal = view.findViewById(R.id.inputGoal);
-        EditText inputCarb = view.findViewById(R.id.inputCarbo);
-        EditText inputProtein = view.findViewById(R.id.inputProtein);
-        EditText inputFat = view.findViewById(R.id.inputFat);
+        inputCarb = view.findViewById(R.id.inputCarbo);
+        inputProtein = view.findViewById(R.id.inputProtein);
+        inputFat = view.findViewById(R.id.inputFat);
 
-        TextView calView = view.findViewById(R.id.calResult);
+        calView = view.findViewById(R.id.calResult);
 
-
+        Button calBut = view.findViewById(R.id.calButton);
 
         preferences = getActivity().getSharedPreferences("PREFS",0);
         editor = preferences.edit();
 
-        Button calBut = view.findViewById(R.id.calButton);
 
         calBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editor.putInt("cal",0);
-                editor.putString("week",inputWeek.getText().toString());
-                editor.putString("goal",inputGoal.getText().toString());
+                if(inputWeek.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "목표기간을 입력해 주세요.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(inputGoal.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "목표무게를 입력해 주세요.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                week = Integer.parseInt(inputWeek.getText().toString());
+                goal = Double.parseDouble(inputGoal.getText().toString());
+                editor.putInt("mode",0);
+                editor.putInt("week",week);
+                editor.putFloat("goal",(float)goal);
 
                 editor.commit();
+
+                flag = preferences.getBoolean("isActivity",true);
+                System.out.println("lW FLAG " + flag);
+                if(flag)
+                    ((UserInfo)getActivity()).onResume();
+                else
+                    getParentFragment().onResume();
             }
         });
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(preferences.getBoolean("inputError",false)){
+            Toast.makeText(getActivity(),"잘못된 입력이 있습니다", Toast.LENGTH_LONG).show();
+            editor.putBoolean(" inputError",true);
+            return;
+        }
 
         totalCal = preferences.getInt("totalCal",0);
         carb = preferences.getInt("carb",0);
@@ -61,7 +100,9 @@ public class loseWeight extends Fragment{
         fat = preferences.getInt("fat",0);
 
         calView.setText(""+totalCal);
+        inputCarb.setText(""+carb);
+        inputProtein.setText(""+protein);
+        inputFat.setText(""+fat);
 
-        return view;
     }
 }
