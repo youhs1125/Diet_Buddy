@@ -38,7 +38,6 @@ public class UserInfo extends AppCompatActivity {
 	SharedPreferences preferences;
 	SharedPreferences.Editor editor;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

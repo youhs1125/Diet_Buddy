@@ -28,6 +28,8 @@ public class fragmentrecommand extends Fragment {
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_recommand, container, false);
 
+
+
 		SharedPreferences preferences = getActivity().getSharedPreferences("PREFS", 0);
 		SharedPreferences.Editor editor = preferences.edit();
 		Switch aSwitch = (Switch) view.findViewById(R.id.notification);
@@ -45,16 +47,36 @@ public class fragmentrecommand extends Fragment {
 					editor.putBoolean("isSwitchOn", true).commit();
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTimeInMillis(System.currentTimeMillis());
-					calendar.set(Calendar.HOUR_OF_DAY, 5);
-					calendar.set(Calendar.MINUTE, 39);
+					calendar.set(Calendar.HOUR_OF_DAY, 9);
+					calendar.set(Calendar.MINUTE, 0);
 
 					Intent notifyIntent = new Intent(getActivity(), MyReceiver.class);
 					PendingIntent pendingIntent = PendingIntent.getBroadcast
 							(getActivity(), 2, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 					AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 					alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-					//alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis(),1000, pendingIntent);//1000 * 60 * 60 * 24
-					//numberPicker.removeView(dialogView);
+
+					Calendar calendar2 = Calendar.getInstance();
+					calendar2.setTimeInMillis(System.currentTimeMillis());
+					calendar2.set(Calendar.HOUR_OF_DAY, 11);
+					calendar2.set(Calendar.MINUTE, 50);
+
+					Intent notifyIntent2 = new Intent(getActivity(), MyReceiver.class);
+					PendingIntent pendingIntent2 = PendingIntent.getBroadcast
+							(getActivity(), 2, notifyIntent2, PendingIntent.FLAG_UPDATE_CURRENT);
+					AlarmManager alarmManager2 = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+					alarmManager2.set(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), pendingIntent2);
+
+					Calendar calendar3 = Calendar.getInstance();
+					calendar3.setTimeInMillis(System.currentTimeMillis());
+					calendar3.set(Calendar.HOUR_OF_DAY, 17);
+					calendar3.set(Calendar.MINUTE, 50);
+
+					Intent notifyIntent3 = new Intent(getActivity(), MyReceiver.class);
+					PendingIntent pendingIntent3 = PendingIntent.getBroadcast
+							(getActivity(), 2, notifyIntent3, PendingIntent.FLAG_UPDATE_CURRENT);
+					AlarmManager alarmManager3 = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+					alarmManager3.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent3);
 				}
 				else{
 					editor.putBoolean("isSwitchOn", false).commit();
