@@ -171,6 +171,7 @@ public class bulkUp extends Fragment{
                 editor.putInt("carb",carb);
                 editor.putInt("protein",protein);
                 editor.putInt("fat",fat);
+                editor.commit();
             }
         });
         return view;

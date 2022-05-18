@@ -168,6 +168,7 @@ public class loseWeight extends Fragment{
                 editor.putInt("carb",carb);
                 editor.putInt("protein",protein);
                 editor.putInt("fat",fat);
+                editor.commit();
             }
         });
 

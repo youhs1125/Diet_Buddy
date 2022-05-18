@@ -56,6 +56,8 @@ public class UserInfo extends AppCompatActivity {
 		preferences = getSharedPreferences("PREFS",0);
 		editor = preferences.edit();
 
+		editor.putString("isFirst", "0");
+		editor.commit();
 
 		inputHeight = (EditText) findViewById(R.id.inputHeight);
 		inputWeight = (EditText) findViewById(R.id.inputWeight);

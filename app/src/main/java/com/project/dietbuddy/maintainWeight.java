@@ -136,6 +136,16 @@ public class maintainWeight extends Fragment {
                 inputProtein.setText("" + protein);
                 inputFat.setText("" + fat);
 
+                editor.putInt("totalCal",totalCal);
+                editor.putInt("carb",carb);
+                editor.putInt("protein",protein);
+                editor.putInt("fat",fat);
+
+                editor.putInt("totalCal",totalCal);
+                editor.putInt("carb",carb);
+                editor.putInt("protein",protein);
+                editor.putInt("fat",fat);
+                editor.commit();
 
             }
         });

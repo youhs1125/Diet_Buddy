@@ -139,21 +139,36 @@ public class fragmentgraph extends Fragment {
 		pro = Integer.parseInt(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
 		fat = Integer.parseInt(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
 		entries.add(new BarEntry(cal, 0));
-		entries.add(new BarEntry(carbo, 1));
-		entries.add(new BarEntry(pro, 2));
-		entries.add(new BarEntry(fat, 3));
+		entries.add(new BarEntry(preferences.getInt("totalCal", 0), 1));
+		entries.add(new BarEntry(carbo, 2));
+		entries.add(new BarEntry(preferences.getInt("carb", 0), 3));
+		entries.add(new BarEntry(pro, 4));
+		entries.add(new BarEntry(preferences.getInt("protein", 0), 5));
+		entries.add(new BarEntry(fat, 6));
+		entries.add(new BarEntry(preferences.getInt("fat", 0), 7));
 
 		bardataset = new BarDataSet(entries, "Cells");
 
 		ArrayList<String> labels = new ArrayList<String>();
 		labels.add("칼로리");
+		labels.add("목표 칼로리");
 		labels.add("탄수화물");
+		labels.add("목표 탄수화물");
 		labels.add("단백질");
+		labels.add("목표 단백질");
 		labels.add("지방");
+		labels.add("목표 지방");
 
 		data = new BarData(labels, bardataset);
 		barChart.setData(data); // set the data and list of labels into chart
-		bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+		int[] colors = {Color.rgb(90,66,235), Color.rgb(246,24,52),
+				Color.rgb(90,66,235), Color.rgb(246,24,52),
+				Color.rgb(90,66,235), Color.rgb(246,24,52),
+				Color.rgb(90,66,235), Color.rgb(246,24,52)};
+		ArrayList<Integer> color_array = new ArrayList<Integer>();
+
+		for(int c: colors) color_array.add(c);
+		bardataset.setColors(color_array);
 		barChart.animateY(5000);
 		barChart.setDescription("");
 		barChart.getLegend().setEnabled(false);
@@ -180,10 +195,17 @@ public class fragmentgraph extends Fragment {
 				bardataset.removeEntry(1);
 				bardataset.removeEntry(2);
 				bardataset.removeEntry(3);
+				bardataset.removeEntry(4);
+				bardataset.removeEntry(5);
+				bardataset.removeEntry(6);
 				entries.add(new BarEntry(cal, 0));
-				entries.add(new BarEntry(carbo, 1));
-				entries.add(new BarEntry(pro, 2));
-				entries.add(new BarEntry(fat, 3));
+				entries.add(new BarEntry(preferences.getInt("totalCal", 0), 1));
+				entries.add(new BarEntry(carbo, 2));
+				entries.add(new BarEntry(preferences.getInt("carb", 0), 3));
+				entries.add(new BarEntry(pro, 4));
+				entries.add(new BarEntry(preferences.getInt("protein", 0), 5));
+				entries.add(new BarEntry(fat, 6));
+				entries.add(new BarEntry(preferences.getInt("fat", 0), 7));
 				barChart.invalidate();
 
 				editor.putString("calendar_date", y+"-"+m+"-"+d);
