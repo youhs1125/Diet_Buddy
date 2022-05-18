@@ -35,7 +35,6 @@ public class UserInfo extends AppCompatActivity {
 	SharedPreferences preferences;
 	SharedPreferences.Editor editor;
 
-
 	EditText inputHeight;
 	EditText inputWeight;
 	EditText inputAge;
@@ -44,6 +43,7 @@ public class UserInfo extends AppCompatActivity {
 	Button dialogBut;
 	Button maleBut;
 	Button femaleBut;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
