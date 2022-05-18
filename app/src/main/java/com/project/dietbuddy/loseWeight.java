@@ -5,62 +5,173 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class loseWeight extends Fragment{
-    public int week;
     public int totalCal;
     public int carb;
     public int protein;
     public int fat;
+    public int week;
+    public float goal;
 
-    public double goal;
+    public float height;
+    public float weight;
+    public float ratio;
+    public int age;
+    public int sex;
+    public int acti;
+
     public SharedPreferences preferences;
     public SharedPreferences.Editor editor;
+
+    TextView calView;
+    EditText inputCarb;
+    EditText inputProtein;
+    EditText inputFat;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lose_weight, container, false);
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         EditText inputWeek = view.findViewById(R.id.inputWeek);
         EditText inputGoal = view.findViewById(R.id.inputGoal);
-        EditText inputCarb = view.findViewById(R.id.inputCarbo);
-        EditText inputProtein = view.findViewById(R.id.inputProtein);
-        EditText inputFat = view.findViewById(R.id.inputFat);
+        inputCarb = view.findViewById(R.id.inputCarbo);
+        inputProtein = view.findViewById(R.id.inputProtein);
+        inputFat = view.findViewById(R.id.inputFat);
 
-        TextView calView = view.findViewById(R.id.calResult);
+        calView = view.findViewById(R.id.calResult);
 
-
+        Button calBut = view.findViewById(R.id.calButton);
 
         preferences = getActivity().getSharedPreferences("PREFS",0);
         editor = preferences.edit();
 
-        Button calBut = view.findViewById(R.id.calButton);
 
         calBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editor.putBoolean("cal",true);
-                editor.putString("week",inputWeek.getText().toString());
-                editor.putString("goal",inputGoal.getText().toString());
+                System.out.println(preferences.getFloat("height",-1));
+                if (preferences.getFloat("height",-1) == -1) {
+                    Toast.makeText(getActivity(), "키를 입력해주세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (preferences.getFloat("weight",-1) == -1) {
+                    Toast.makeText(getActivity(), "체중을 입력해주세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (preferences.getInt("age",-1) == -1) {
+                    Toast.makeText(getActivity(), "나이를 입력해주세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(preferences.getInt("sex",-1) == -1){
+                    Toast.makeText(getActivity(), "성별을 선택해주세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (preferences.getInt("acti",-1) == -1) {
+                    Toast.makeText(getActivity(), "활동량을 선택해주세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(inputWeek.getText().toString().equals("") || inputWeek.getText().toString().equals("0")) {
+                    Toast.makeText(getActivity(), "목표기간을 입력해주세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else{
+                    week = Integer.parseInt(inputWeek.getText().toString());
+                }
+                if(inputGoal.getText().equals("")) {
+                    Toast.makeText(getActivity(), "목표체중을 입력해주세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else {
+                    goal = Float.parseFloat(inputGoal.getText().toString());
+                }
 
-                editor.commit();
+                height = preferences.getFloat("height", -1);
+                weight = preferences.getFloat("weight", -1);
+                ratio = preferences.getFloat("ratio",-1);
+
+                age = preferences.getInt("age", -1);
+                acti = preferences.getInt("acti", -1);
+                sex = preferences.getInt("sex", -1);
+
+                if(sex == -1)
+                {
+                    Toast.makeText(getActivity(), "성별을 선택해주세요", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                System.out.println("weight goal" + weight + "," + goal);
+                if(weight < goal){
+                    Toast.makeText(getActivity(), "목표체중은 현재체중보다 낮아야 합니다", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                goal = weight - goal;
+                System.out.println("ratio"+ratio);
+
+                if(ratio <= 0){
+                    totalCal = (int) (10 * weight + 6.25 * height - 5 * age);
+                    if (sex == 1)
+                        totalCal += 5;
+                    else if(sex == 0)
+                        totalCal -= 161;
+                }
+                else {
+                    totalCal = (int) (370 + (21.6 * weight * (1 - ratio)));
+                }
+
+                switch (acti) {
+                    case 0:
+                        totalCal *= 1.02f;
+                        break;
+                    case 1:
+                        totalCal *= 1.375f;
+                        break;
+                    case 2:
+                        totalCal *= 1.555f;
+                        break;
+                    case 3:
+                        totalCal *= 1.729f;
+                        break;
+                    case 4:
+                        totalCal *= 1.9f;
+                        break;
+                }
+
+//  감량 증량
+                totalCal -= goal * 7700 / (week * 7);
+
+
+                carb = (int) (totalCal * 0.35 / 4);
+                protein = (int) (totalCal * 0.3 / 4);
+                fat = (int) (totalCal * 0.35 / 9);
+
+                calView.setText("" + totalCal);
+                inputCarb.setText("" + carb);
+                inputProtein.setText("" + protein);
+                inputFat.setText("" + fat);
+
+                editor.putInt("totalCal",totalCal);
+                editor.putInt("carb",carb);
+                editor.putInt("protein",protein);
+                editor.putInt("fat",fat);
             }
         });
 
-        totalCal = preferences.getInt("totalCal",0);
-        carb = preferences.getInt("carb",0);
-        protein = preferences.getInt("protein",0);
-        fat = preferences.getInt("fat",0);
 
-        calView.setText(""+totalCal);
 
         return view;
     }
