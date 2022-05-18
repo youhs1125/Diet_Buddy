@@ -109,7 +109,7 @@
             android:id="@+id/weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="목표무게"
+            android:text="목표체중"
             android:textStyle="bold"
             android:fontFamily="@font/buddyfont"
             android:textSize="25dp"

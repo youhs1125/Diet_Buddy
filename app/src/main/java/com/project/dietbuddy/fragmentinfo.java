@@ -2,12 +2,16 @@ package com.project.dietbuddy;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,12 +26,11 @@ public class fragmentinfo extends Fragment{
 
 	Fragment loseWeight,maintainWeight,bulkUp;
 	public int sex;
+	public int temp;
 
-	public double height;
-	public double weight;
-	public double ratio;
-
-	public int flag;
+	public float height;
+	public float weight;
+	public float ratio;
 
 	public int age;
 	public int acti;
@@ -49,6 +52,9 @@ public class fragmentinfo extends Fragment{
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_info, container, false);
 
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
 		EditText inputHeight = (EditText) view.findViewById(R.id.inputHeight);
 		EditText inputWeight = (EditText) view.findViewById(R.id.inputWeight);
 		EditText inputAge = (EditText) view.findViewById(R.id.inputAge);
@@ -61,16 +67,14 @@ public class fragmentinfo extends Fragment{
 
 		preferences = getActivity().getSharedPreferences("PREFS", 0);
 		editor = preferences.edit();
-		editor.putInt("mode",-1);
-		editor.putBoolean("isActivity", false);
 
-		editor.commit();
+		temp = -1;
 
 //저장값 가져오기
-		height = (double)preferences.getFloat("height",0);
-		weight = (double)preferences.getFloat("weight",0);
+		height = preferences.getFloat("height",0);
+		weight = preferences.getFloat("weight",0);
 		age = preferences.getInt("age",0);
-		ratio = (double)preferences.getFloat("ratio",0);
+		ratio = preferences.getFloat("ratio",0);
 		sex = preferences.getInt("sex",-1);
 		acti = preferences.getInt("acti",-1);
 
@@ -99,6 +103,8 @@ public class fragmentinfo extends Fragment{
 				maleBut.setBackgroundResource(R.drawable.mangray);
 				femaleBut.setBackgroundResource(R.drawable.woman);
 				sex = 1;
+				editor.putInt("sex",1);
+				editor.commit();
 			}
 		});
 
@@ -108,6 +114,8 @@ public class fragmentinfo extends Fragment{
 				femaleBut.setBackgroundResource(R.drawable.womangray);
 				maleBut.setBackgroundResource(R.drawable.man);
 				sex = 0;
+				editor.putInt("sex",0);
+				editor.commit();
 			}
 		});
 
@@ -125,6 +133,8 @@ public class fragmentinfo extends Fragment{
 					@Override
 					public void onClick(DialogInterface dialog, int which){
 						acti = which;
+						editor.putInt("acti",acti);
+						editor.commit();
 					}
 				});
 				dlg.setPositiveButton("선택",new DialogInterface.OnClickListener(){
@@ -136,6 +146,26 @@ public class fragmentinfo extends Fragment{
 			}
 		});
 
+		okBut.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(inputHeight.getText().toString().equals("")){
+					Toast.makeText(getActivity(), "키를 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(inputWeight.getText().toString().equals("")){
+					Toast.makeText(getActivity(), "몸무게를 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(inputAge.getText().toString().equals("")){
+					Toast.makeText(getActivity(), "나이를 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(dialogBut.getText().toString().equals("선택")){
+					Toast.makeText(getActivity(), "운동 빈도를 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(sex == -1){
+					Toast.makeText(getActivity(), "성별을 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 
 
 //		탭 메뉴
@@ -172,139 +202,84 @@ public class fragmentinfo extends Fragment{
 			}
 
 		});
+
+		//	editText 이벤트 리스너
+		inputHeight.addTextChangedListener(new TextWatcher(){
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0){
+				if(!inputHeight.getText().toString().equals(""))
+					editor.putFloat("height",Float.parseFloat(inputHeight.getText().toString()));
+				editor.commit();
+			}
+		});
+		inputWeight.addTextChangedListener(new TextWatcher(){
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0){
+				if(!inputWeight.getText().toString().equals(""))
+					editor.putFloat("weight",Float.parseFloat(inputWeight.getText().toString()));
+				editor.commit();
+			}
+		});
+		inputAge.addTextChangedListener(new TextWatcher(){
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0){
+				if(!inputAge.getText().toString().equals(""))
+					editor.putInt("age",Integer.parseInt(inputAge.getText().toString()));
+				editor.commit();
+			}
+		});
+		inputAge.addTextChangedListener(new TextWatcher(){
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0){
+				if(!inputRatio.getText().toString().equals("")){
+					System.out.println("ratioInput"+inputRatio.getText().toString());
+					editor.putFloat("ratio",Float.parseFloat(inputRatio.getText().toString())/100);
+					editor.commit();
+				}
+			}
+		});
+
 		return view;
-	}
-	@Override
-	public void onResume() {
-		super.onResume();
-		int week;
-		double goal;
-
-		flag = preferences.getInt("mode", -1);
-		System.out.println(flag);
-		if (flag != -1) {
-			String temp;
-			if(!inputHeight.getText().toString().equals(""))
-				height = Double.parseDouble(inputHeight.getText().toString());
-			else {
-				editor.putBoolean("inputError", true);
-				return;
-			}
-			if(!inputWeight.getText().toString().equals(""))
-				weight = Double.parseDouble(inputWeight.getText().toString());
-			else {
-				editor.putBoolean("inputError", true);
-				return;
-			}
-			if(!inputAge.getText().toString().equals(""))
-				age = Integer.parseInt(inputAge.getText().toString());
-			else {
-				editor.putBoolean("inputError", true);
-				return;
-			}
-			temp = inputRatio.getText().toString();
-
-			week = preferences.getInt("week", 0);
-			goal = (double)preferences.getFloat("goal", 0);
-
-			if(goal > 0)
-			{
-				if(flag == 0){
-					goal = weight - goal;
-					if(goal < 0)
-						editor.putBoolean("inputError",true);
-				}
-				if(flag == 2){
-					goal = goal - weight;
-					if(goal < 0)
-						editor.putBoolean("inputError",true);
-				}
-			}
-
-
-			if (temp.equals("")) {
-				totalCal = (int) (10 * weight + 6.25 * height - 5 * age);
-				if (sex == 1)
-					totalCal += 5;
-				else if(sex == 0)
-					totalCal -= 161;
-			} else {
-				ratio = Double.parseDouble(temp);
-				ratio/=100;
-				totalCal = (int) (370 + (21.6 * weight * (1 - ratio)));
-
-			}
-
-			switch (acti) {
-				case 0:
-					totalCal *= 1.02f;
-					break;
-				case 1:
-					totalCal *= 1.375f;
-					break;
-				case 2:
-					totalCal *= 1.555f;
-					break;
-				case 3:
-					totalCal *= 1.729f;
-					break;
-				case 4:
-					totalCal *= 1.9f;
-					break;
-			}
-
-			switch (flag) {
-				case 0:
-					totalCal -= goal * 7700 / (week * 7);
-					break;
-				case 2:
-					totalCal += goal * 1500 / (week * 7);
-					break;
-				default:
-					break;
-			}
-
-
-//			탄단지 분배 35 30 35
-			carb = (int) (totalCal * 0.35 / 4);
-			protein = (int) (totalCal * 0.3 / 4);
-			fat = (int) (totalCal * 0.35 / 9);
-
-			editor.putFloat("height",(float)height);
-			editor.putFloat("weight",(float)weight);
-			editor.putInt("sex",sex);
-			editor.putInt("ratio",(int)(ratio*100));
-			editor.putInt("age",age);
-			editor.putInt("totalCal", totalCal);
-			editor.putInt("carb", carb);
-			editor.putInt("protein", protein);
-			editor.putInt("fat", fat);
-
-			editor.commit();
-
-
-			switch (flag) {
-				case 0:
-					loseWeight.onResume();
-					break;
-				case 1:
-					maintainWeight.onResume();
-					break;
-				case 2:
-					bulkUp.onResume();
-					break;
-				default:
-					break;
-			}
-		}
-	}
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		editor.remove("mode");
-		editor.remove("inputError");
-		editor.remove("isActivity");
-		editor.commit();
 	}
 }
 
