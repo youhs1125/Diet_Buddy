@@ -254,6 +254,9 @@ public class bulkUp extends Fragment{
                 editor.putInt("protein",protein);
                 editor.commit();
                 return;
+
+                editor.commit();
+
             }
         });
         return view;
