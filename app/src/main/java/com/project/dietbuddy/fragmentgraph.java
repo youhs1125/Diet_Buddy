@@ -301,7 +301,7 @@ public class fragmentgraph extends Fragment {
 			list_salt.addAll(preferences.getStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
 			list_gram.addAll(preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));*/
 
-		System.out.println("food::"+preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString());
+		//System.out.println("food::"+preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString());
 		if(!preferences.getString("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString().equals("")){
 
 			ssl.fromJSONString(preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));

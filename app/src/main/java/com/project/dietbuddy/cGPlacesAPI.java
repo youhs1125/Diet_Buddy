@@ -27,7 +27,7 @@ public class cGPlacesAPI
 		mContext = _con;
 		try
 		{
-			String uStr = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + _lat + "," + _lon + "&radius=" + _radius + "&types=" + _type + "&key=AIzaSyA7B0fTUPngVzlNi8NUriDpEsXXPR8b3rQ";
+			String uStr = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.55076877346778,127.07546493107172&radius=500&types=restaurant&key=AIzaSyB-hcq2N16f34h39FzZcqTZ07MRwNavf_8";
 			URL url = new URL(uStr);
 			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 			String inputLine;
@@ -76,14 +76,14 @@ public class cGPlacesAPI
 				String sLon = location.getString("lng");
 
 				// 이름 얻기
-				String      name = result.getString("name");
+				String  name = result.getString("name");
 
 				// Rating 얻기
 				String      rating = "0";
 				if (result.has("rating") == true)
 					rating  = result.getString("rating");
 
-				mList.add(name + sLat + sLon + "");
+				mList.add(name + "," + sLat + "," + sLon + "");
 			}
 		}
 		catch (JSONException e)

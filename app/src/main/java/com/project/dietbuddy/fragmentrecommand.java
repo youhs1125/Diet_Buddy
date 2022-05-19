@@ -16,6 +16,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +53,8 @@ public class fragmentrecommand extends Fragment implements OnMapReadyCallback, R
 	private GoogleMap mMap;
 	MarkerOptions myMarker;
 	Location location;
+	LinkedList<String> parsing_list;
+	private final static int UPDATELOCATION = 0;
 
 	//vars
 	private Boolean mLocationPermissionsGranted = false;
@@ -132,7 +136,6 @@ public class fragmentrecommand extends Fragment implements OnMapReadyCallback, R
 		//myMarker.snippet("한국의 수도");
 		//mMap.addMarker(myMarker);
 		//mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 10));
-
 		requestMyLocation();
 		location = getLocationFromAddress(getContext(), "샐러드");
 		Thread t = new Thread(this);
@@ -143,8 +146,9 @@ public class fragmentrecommand extends Fragment implements OnMapReadyCallback, R
 	{
 		cGPlacesAPI placesAPI;
 		placesAPI = new cGPlacesAPI(getActivity(), location.getLatitude(), location.getLongitude(), 500, "food|restaurant");
-		LinkedList<String> list = placesAPI.parsing();
-		System.out.println(list.get(0));
+		parsing_list = placesAPI.parsing();
+		handler.sendEmptyMessage(UPDATELOCATION);
+
 		while (true)
 		{
 			try
@@ -172,7 +176,6 @@ public class fragmentrecommand extends Fragment implements OnMapReadyCallback, R
 		if (list != null) {
 			if (list.size() == 0) {
 				Toast.makeText(getContext(), "해당되는 주소 정보를 찾지 못했습니다.", Toast.LENGTH_LONG).show();
-				System.out.println("HelloWorld");
 				resLocation.setLatitude(37.56);
 				resLocation.setLongitude(126.97);
 			} else {
@@ -223,6 +226,14 @@ public class fragmentrecommand extends Fragment implements OnMapReadyCallback, R
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 10));
 	}
 
+	private void showShopMarker(String name, Location location) {
+		myMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+		myMarker.title("◎ 식당\n");
+		myMarker.snippet(name);
+		mMap.addMarker(myMarker);
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 10));
+	}
+
 	private void checkDangerousPermissions() {
 		String[] permissions = {
 				android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -259,4 +270,18 @@ public class fragmentrecommand extends Fragment implements OnMapReadyCallback, R
 			}
 		}
 	}
+	private Handler handler = new Handler() { //thread에서 사용될 부분을 정의
+		@Override
+		public void handleMessage(@NonNull Message msg) {
+			if (msg.what == UPDATELOCATION){
+				for(String i : parsing_list) {
+					String[] info = i.split(",");
+					Location lo = new Location("");
+					lo.setLatitude(Float.parseFloat(info[1]));
+					lo.setLongitude(Float.parseFloat(info[2]));
+					showShopMarker(info[0], lo);
+				}
+			}
+		}
+	};
 }
