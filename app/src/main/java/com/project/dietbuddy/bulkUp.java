@@ -2,6 +2,8 @@ package com.project.dietbuddy;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,7 +173,90 @@ public class bulkUp extends Fragment{
                 editor.putInt("carb",carb);
                 editor.putInt("protein",protein);
                 editor.putInt("fat",fat);
+
                 editor.commit();
+            }
+        });
+
+        inputCarb.addTextChangedListener(new TextWatcher(){
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(inputCarb.getText().toString().equals(""))
+                    carb = 0;
+                else
+                    carb = Integer.parseInt(inputCarb.getText().toString());
+                totalCal = 4*carb + 4*protein + 9*fat;
+                calView.setText(""+totalCal);
+                editor.putInt("totalCal",totalCal);
+                editor.putInt("carb",carb);
+                editor.commit();
+                return;
+            }
+        });
+
+        inputFat.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(inputFat.getText().toString().equals(""))
+                    fat = 0;
+                else
+                    fat = Integer.parseInt(inputFat.getText().toString());
+                totalCal = 4*carb + 4*protein + 9*fat;
+                calView.setText(""+totalCal);
+                editor.putInt("totalCal",totalCal);
+                editor.putInt("fat",fat);
+                editor.commit();
+                return;
+            }
+        });
+
+        inputProtein.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(inputProtein.getText().toString().equals(""))
+                    protein = 0;
+                else
+                    protein = Integer.parseInt(inputProtein.getText().toString());
+                totalCal = 4*carb + 4*protein + 9*fat;
+                calView.setText(""+totalCal);
+                editor.putInt("totalCal",totalCal);
+                editor.putInt("protein",protein);
+                editor.commit();
+                return;
+
+                editor.commit();
+
             }
         });
         return view;

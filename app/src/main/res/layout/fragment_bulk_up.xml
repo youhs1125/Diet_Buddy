@@ -214,7 +214,7 @@
 
         <EditText
             android:id="@+id/inputWeek"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
 

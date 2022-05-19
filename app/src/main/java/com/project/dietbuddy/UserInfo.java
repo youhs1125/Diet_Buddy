@@ -23,13 +23,8 @@ public class UserInfo extends AppCompatActivity {
 	Fragment loseWeight,maintainWeight,bulkUp;
 	public int sex;
 
-
-	public int age;
 	public int acti;
-	public int totalCal;
-	public int carb;
-	public int protein;
-	public int fat;
+
 	public int temp;
 
 	SharedPreferences preferences;
@@ -77,6 +72,7 @@ public class UserInfo extends AppCompatActivity {
 		okBut.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				System.out.println("Cal:"+preferences.getInt("totalCal",0));
 				if(inputHeight.getText().toString().equals("")){
 					Toast.makeText(getApplicationContext(), "키를 입력해 주세요.", Toast.LENGTH_LONG).show();
 				}
@@ -91,6 +87,9 @@ public class UserInfo extends AppCompatActivity {
 				}
 				else if(sex == -1){
 					Toast.makeText(getApplicationContext(), "성별을 입력해 주세요.", Toast.LENGTH_LONG).show();
+				}
+				else if(preferences.getInt("totalCal",0) == 0){
+					Toast.makeText(getApplicationContext(), "계산 버튼을 눌러 주세요.", Toast.LENGTH_LONG).show();
 				}
 				else {
 					startActivity(new Intent(getApplicationContext(), MainActivity.class));
