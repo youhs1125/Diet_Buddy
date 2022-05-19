@@ -10,14 +10,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1"/>
+        app:layout_constraintGuide_percent="0.05"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9"/>
+        app:layout_constraintGuide_percent="0.86"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/butLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.87"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/butRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96"/>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/graph_top"
@@ -99,6 +114,17 @@
         app:layout_constraintTop_toTopOf="@+id/search"
         app:layout_constraintBottom_toBottomOf="@+id/search"
         app:layout_constraintEnd_toEndOf="@+id/search"/>
+
+    <Button
+        android:id="@+id/addNew"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/add"
+        app:layout_constraintTop_toTopOf="@+id/search"
+        app:layout_constraintBottom_toBottomOf="@+id/search"
+        app:layout_constraintLeft_toLeftOf="@+id/butLeft"
+        app:layout_constraintRight_toRightOf="@+id/butRight"
+        />
 
     <ListView
         android:id="@+id/list"
