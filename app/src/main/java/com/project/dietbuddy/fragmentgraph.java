@@ -1,6 +1,8 @@
 package com.project.dietbuddy;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,15 +40,27 @@ public class fragmentgraph extends Fragment {
 	ListView listView;
 	TextView calendar_tv;
 
-	ArrayList<String> list;
+/*	ArrayList<String> list;
 	ArrayList<String> list_cal;
 	ArrayList<String> list_carbo;
 	ArrayList<String> list_fat;
 	ArrayList<String> list_pro;
 	ArrayList<String> list_salt;
-	ArrayList<String> list_gram;
+	ArrayList<String> list_gram;*/
 	ArrayList<NutrientItem> items;
 	ArrayAdapter adapter;
+
+	StringSettingList ssl;
+	StringSettingList ssl_cal;
+	StringSettingList ssl_carbo;
+	StringSettingList ssl_fat;
+	StringSettingList ssl_pro;
+	StringSettingList ssl_salt;
+	StringSettingList ssl_gram;
+
+	Button addBut;
+
+	AlertDialog alertDialog;
 
 	int cal;
 	int carbo;
@@ -61,6 +76,7 @@ public class fragmentgraph extends Fragment {
 	BarData data;
 	BarDataSet bardataset;
 
+
 	private int day;
 	private int day_reset;
 
@@ -71,6 +87,8 @@ public class fragmentgraph extends Fragment {
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_graph, container, false);
+
+		addBut = (Button)view.findViewById(R.id.addNew);
 
 		search = view.findViewById(R.id.search);
 		ok = view.findViewById(R.id.ok);
@@ -95,13 +113,23 @@ public class fragmentgraph extends Fragment {
 
 		day_reset = preferences.getInt("day", 0);
 		if (day != day_reset) {
-			LinkedHashSet<String> set = new LinkedHashSet<String>();
+
+/*			LinkedHashSet<String> set = new LinkedHashSet<String>();
 			editor.putStringSet("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
 			editor.putStringSet("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
 			editor.putStringSet("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
 			editor.putStringSet("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
 			editor.putStringSet("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
-			editor.putStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
+			editor.putStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);*/
+
+			StringSettingList ssl = new StringSettingList();
+
+			editor.putString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "");
+			editor.putString("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "");
+			editor.putString("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "");
+			editor.putString("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "");
+			editor.putString("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "");
+			editor.putString("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "");
 
 			editor.putString("foodint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
 			editor.putString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
@@ -175,6 +203,33 @@ public class fragmentgraph extends Fragment {
 
 		return view;
 	}
+
+	void showBarChart(){
+		cal = Integer.parseInt(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+		carbo = Integer.parseInt(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+		pro = Integer.parseInt(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+		fat = Integer.parseInt(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+		bardataset.removeEntry(0);
+		bardataset.removeEntry(1);
+		bardataset.removeEntry(2);
+		bardataset.removeEntry(3);
+		bardataset.removeEntry(4);
+		bardataset.removeEntry(5);
+		bardataset.removeEntry(6);
+		entries.clear();
+		entries.add(new BarEntry(cal, 0));
+		entries.add(new BarEntry(preferences.getInt("totalCal", 0), 1));
+		entries.add(new BarEntry(carbo, 2));
+		entries.add(new BarEntry(preferences.getInt("carb", 0), 3));
+		entries.add(new BarEntry(pro, 4));
+		entries.add(new BarEntry(preferences.getInt("protein", 0), 5));
+		entries.add(new BarEntry(fat, 6));
+		entries.add(new BarEntry(preferences.getInt("fat", 0), 7));
+		barChart.invalidate();
+
+		editor.commit();
+	}
+
 	void showDate() {
 		DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
 			@Override
@@ -187,26 +242,7 @@ public class fragmentgraph extends Fragment {
 
 				makeList();
 
-				cal = Integer.parseInt(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-				carbo = Integer.parseInt(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-				pro = Integer.parseInt(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-				fat = Integer.parseInt(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-				bardataset.removeEntry(0);
-				bardataset.removeEntry(1);
-				bardataset.removeEntry(2);
-				bardataset.removeEntry(3);
-				bardataset.removeEntry(4);
-				bardataset.removeEntry(5);
-				bardataset.removeEntry(6);
-				entries.add(new BarEntry(cal, 0));
-				entries.add(new BarEntry(preferences.getInt("totalCal", 0), 1));
-				entries.add(new BarEntry(carbo, 2));
-				entries.add(new BarEntry(preferences.getInt("carb", 0), 3));
-				entries.add(new BarEntry(pro, 4));
-				entries.add(new BarEntry(preferences.getInt("protein", 0), 5));
-				entries.add(new BarEntry(fat, 6));
-				entries.add(new BarEntry(preferences.getInt("fat", 0), 7));
-				barChart.invalidate();
+				showBarChart();
 
 				editor.putString("calendar_date", y+"-"+m+"-"+d);
 				editor.commit();
@@ -217,29 +253,62 @@ public class fragmentgraph extends Fragment {
 		datePickerDialog.show();
 	}
 	void makeList(){
-		list = new ArrayList<>();
+/*		list = new ArrayList<>();
 		list_cal = new ArrayList<>();
 		list_carbo = new ArrayList<>();
 		list_fat = new ArrayList<>();
 		list_pro = new ArrayList<>();
 		list_salt = new ArrayList<>();
 		list_gram = new ArrayList<>();
+
+ */
+		System.out.println("makeList호출!!");
+		ssl = new StringSettingList();
+		ssl_cal = new StringSettingList();
+		ssl_carbo = new StringSettingList();
+		ssl_fat = new StringSettingList();
+		ssl_pro = new StringSettingList();
+		ssl_salt = new StringSettingList();
+		ssl_gram = new StringSettingList();
+
 		items = new ArrayList<>();
+
+
 		adapter = new NutrientItemAdapter(getActivity(), R.layout.activity_nutrient_item_adapter, items);
 
-		if (preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null) != null) {
+/*		if (preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null) != null) {
 			list.addAll(preferences.getStringSet("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
 			list_cal.addAll(preferences.getStringSet("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
 			list_carbo.addAll(preferences.getStringSet("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
 			list_pro.addAll(preferences.getStringSet("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
 			list_fat.addAll(preferences.getStringSet("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
 			list_salt.addAll(preferences.getStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
-			list_gram.addAll(preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
+			list_gram.addAll(preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));*/
+
+		System.out.println("food::"+preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString());
+		if(!preferences.getString("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString().equals("")){
+
+			ssl.fromJSONString(preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
+			ssl_cal.fromJSONString(preferences.getString("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
+			ssl_carbo.fromJSONString(preferences.getString("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
+			ssl_pro.fromJSONString(preferences.getString("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
+			ssl_fat.fromJSONString(preferences.getString("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
+			ssl_salt.fromJSONString(preferences.getString("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
+			ssl_gram.fromJSONString(preferences.getString("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
+
 			int counter = 0;
-			for(String i : list){
+			System.out.println("ssl content::" + ssl.toString());
+			System.out.println("ssl_cal content::" + ssl_cal.toString());
+			System.out.println("ssl_carbo content::" + ssl_carbo.toString());
+			System.out.println("ssl_pro content::" + ssl_pro.toString());
+			System.out.println("ssl_fat content::" + ssl_fat.toString());
+			System.out.println("ssl_salt content::" + ssl_salt.toString());
+			System.out.println("ssl_gram content::" + ssl_gram.toString());
+			for(String i : ssl){
 				String[] title = i.split(",");
 
-				String[] gram = list_gram.get(counter).split(",");
+				String[] gram = ssl_gram.get(counter).split(",");
+				System.out.println("gram"+gram[1]);
 				items.add(new NutrientItem(title[0], gram[1] + "g"));
 				counter++;
 			}
@@ -249,7 +318,7 @@ public class fragmentgraph extends Fragment {
 		}
 		listView.invalidateViews();
 		listView.setAdapter(adapter);
-		if(list.isEmpty()){
+		if(ssl == null){
 			listView.setBackgroundResource(R.drawable.listblank);
 			listView.invalidateViews();
 		}
@@ -257,5 +326,89 @@ public class fragmentgraph extends Fragment {
 			listView.setBackgroundColor(Color.argb(0, 235,239,242));
 			listView.invalidateViews();
 		}
+
+		addBut.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				final AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
+				LayoutInflater inflater = getLayoutInflater();
+
+				final View dialogView = inflater.inflate(R.layout.activity_nutrient_add_dialog, null);
+				db.setView(dialogView);
+				EditText title = dialogView.findViewById(R.id.addTitle);
+				EditText inputCarb = dialogView.findViewById(R.id.addCarb);
+				EditText inputProtein = dialogView.findViewById(R.id.addProtein);
+				EditText inputFat = dialogView.findViewById(R.id.addFat);
+				EditText input = dialogView.findViewById(R.id.editInd);
+				Button add = dialogView.findViewById(R.id.addButton);
+
+				alertDialog = db.create();
+				alertDialog.show();
+				add.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						if (input.getText().toString().equals("") || Integer.parseInt(input.getText().toString()) <= 0 || title.getText().toString().equals("") ||
+								inputCarb.getText().toString().equals("") || Integer.parseInt(inputCarb.getText().toString()) <= 0 || inputProtein.getText().toString().equals("") || Integer.parseInt(inputProtein.getText().toString()) <= 0 ||
+								inputFat.getText().toString().equals("") || Integer.parseInt(inputFat.getText().toString()) <= 0 ) {
+							Toast.makeText(getActivity(), "입력 값이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+						}
+						else {
+							if (!preferences.getString("food" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
+								ssl.fromJSONString(preferences.getString("food" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+							if (!preferences.getString("foodcal" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
+								ssl_cal.fromJSONString(preferences.getString("foodcal" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+							if (!preferences.getString("foodcarbo" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
+								ssl_carbo.fromJSONString(preferences.getString("foodcarbo" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+							if (!preferences.getString("foodpro" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
+								ssl_pro.fromJSONString(preferences.getString("foodpro" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+							if (!preferences.getString("foodfat" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
+								ssl_fat.fromJSONString(preferences.getString("foodfat" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+							if (!preferences.getString("foodsalt" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
+								ssl_salt.fromJSONString(preferences.getString("foodsalt" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+							if (!preferences.getString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
+								ssl_gram.fromJSONString(preferences.getString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+
+							title.setText(title.getText().toString()+",");
+							ssl.add(title.getText().toString());
+							ssl_cal.add(title.getText().toString() + Double.parseDouble(inputCarb.getText().toString())*4 + Double.parseDouble(inputProtein.getText().toString())*4+ Double.parseDouble(inputFat.getText().toString())*9);
+							ssl_carbo.add(title.getText().toString() + Double.parseDouble(inputCarb.getText().toString()));
+							ssl_pro.add(title.getText().toString() + Double.parseDouble(inputProtein.getText().toString()));
+							ssl_fat.add(title.getText().toString() + Double.parseDouble(inputFat.getText().toString()));
+							ssl_salt.add(title.getText().toString() + 0);
+							ssl_gram.add(title.getText().toString() + Double.parseDouble(input.getText().toString()));
+
+							int prefoodcal = (int) (Double.parseDouble(inputCarb.getText().toString())*4 + Double.parseDouble(inputProtein.getText().toString())*4+ Double.parseDouble(inputFat.getText().toString())*9 + Double.parseDouble(preferences.getString("foodcalint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
+							int prefoodcarbo = (int) (Double.parseDouble(inputCarb.getText().toString()) + Double.parseDouble(preferences.getString("foodcarboint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
+							int prefoodpro = (int) (Double.parseDouble(inputProtein.getText().toString()) + Double.parseDouble(preferences.getString("foodproint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
+							int prefoodfat = (int) (Double.parseDouble(inputFat.getText().toString()) + Double.parseDouble(preferences.getString("foodfatint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
+
+							editor.putString("foodint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), title.getText().toString());
+							editor.putString("foodcalint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), String.valueOf(prefoodcal));
+							editor.putString("foodcarboint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), String.valueOf(prefoodcarbo));
+							editor.putString("foodproint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), String.valueOf(prefoodpro));
+							editor.putString("foodfatint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), String.valueOf(prefoodfat));
+							editor.putString("foodsaltint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0");
+							editor.putString("foodgramint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), input.getText().toString());
+
+
+							editor.putString("food" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl.toString());
+							editor.putString("foodcal" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_cal.toString());
+							editor.putString("foodcarbo" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_carbo.toString());
+							editor.putString("foodpro" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_pro.toString());
+							editor.putString("foodfat" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_fat.toString());
+							editor.putString("foodsalt" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_salt.toString());
+							editor.putString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_gram.toString());
+
+							editor.commit();
+
+							makeList();
+							showBarChart();
+
+							alertDialog.dismiss();
+						}
+					}
+				});
+			}
+		});
 	}
 }

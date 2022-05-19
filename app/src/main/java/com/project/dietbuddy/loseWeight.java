@@ -224,7 +224,6 @@ public class loseWeight extends Fragment{
                 editor.putInt("fat",fat);
                 editor.commit();
                 return;
-                editor.commit();
             }
         });
 

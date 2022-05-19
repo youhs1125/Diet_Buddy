@@ -255,7 +255,6 @@ public class bulkUp extends Fragment{
                 editor.commit();
                 return;
 
-                editor.commit();
 
             }
         });

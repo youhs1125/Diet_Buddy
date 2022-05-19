@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/dialogback">
+
+    <EditText
+        android:id="@+id/addTitle"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="이름 입력"
+        android:textSize = "15sp"
+        android:textColor="#000000"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.67" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.37"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.38" />
+
+        <TextView
+            android:id="@+id/addCarboInd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탄"
+            android:textSize = "18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/left" />
+
+        <EditText
+            android:id="@+id/addCarb"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            android:textSize = "18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_weight="1"
+
+            app:layout_constraintLeft_toRightOf="@+id/addCarboInd"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/addProInd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="단"
+            android:textSize = "18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/left6"/>
+
+        <EditText
+            android:id="@+id/addProtein"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:inputType="numberDecimal"
+            android:textSize = "18sp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_weight="1"
+
+            app:layout_constraintLeft_toRightOf="@+id/addProInd"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:id="@+id/addFatInd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지"
+            android:textSize = "18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/left2"
+            />
+
+        <EditText
+            android:id="@+id/addFat"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize = "18sp"
+            android:textAlignment="center"
+            android:inputType="numberDecimal"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_weight="1"
+
+            app:layout_constraintLeft_toRightOf="@+id/addFatInd"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editInd"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
+            android:textSize = "13sp"
+            android:textAlignment="center"
+            android:hint="그램수를 입력하세요"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:inputType="number"
+            android:background="@drawable/dialoginput"
+            android:fontFamily="@font/buddyfont" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addButton"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:text="추가"
+            android:textStyle="bold"
+            android:textColor="#F6CC34"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/foodok"
+            android:fontFamily="@font/buddyfont"/>
+    </LinearLayout>
+
+</LinearLayout>
