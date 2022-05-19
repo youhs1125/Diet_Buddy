@@ -56,6 +56,9 @@ public class fragmentgraph extends Fragment {
 	int m;
 	int d;
 
+	int blue_color = Color.rgb(90,66,235);
+	int red_color = Color.rgb(235,91,74);
+
 	BarChart barChart;
 	ArrayList<BarEntry> entries;
 	BarData data;
@@ -161,10 +164,23 @@ public class fragmentgraph extends Fragment {
 
 		data = new BarData(labels, bardataset);
 		barChart.setData(data); // set the data and list of labels into chart
-		int[] colors = {Color.rgb(90,66,235), Color.rgb(246,24,52),
-				Color.rgb(90,66,235), Color.rgb(246,24,52),
-				Color.rgb(90,66,235), Color.rgb(246,24,52),
-				Color.rgb(90,66,235), Color.rgb(246,24,52)};
+		int[] colors = {blue_color, Color.rgb(246,204,52),
+				blue_color, Color.rgb(246,204,52),
+				blue_color, Color.rgb(246,204,52),
+				blue_color, Color.rgb(246,204,52)};
+
+		if(preferences.getInt("totalCal", 0) < cal){
+			colors[0] = red_color;
+		}
+		if(preferences.getInt("carb", 0) < cal){
+			colors[2] = red_color;
+		}
+		if(preferences.getInt("protein", 0) < pro){
+			colors[4] = red_color;
+		}
+		if(preferences.getInt("fat", 0) < fat){
+			colors[4] = red_color;
+		}
 		ArrayList<Integer> color_array = new ArrayList<Integer>();
 
 		for(int c: colors) color_array.add(c);
@@ -198,6 +214,27 @@ public class fragmentgraph extends Fragment {
 				bardataset.removeEntry(4);
 				bardataset.removeEntry(5);
 				bardataset.removeEntry(6);
+
+				int[] colors = {blue_color, Color.rgb(246,204,52),
+						blue_color, Color.rgb(246,204,52),
+						blue_color, Color.rgb(246,204,52),
+						blue_color, Color.rgb(246,204,52)};
+				if(preferences.getInt("totalCal", 0) < cal){
+					colors[0] = red_color;
+				}
+				if(preferences.getInt("carb", 0) < cal){
+					colors[2] = red_color;
+				}
+				if(preferences.getInt("protein", 0) < pro){
+					colors[4] = red_color;
+				}
+				if(preferences.getInt("fat", 0) < fat){
+					colors[4] = red_color;
+				}
+				ArrayList<Integer> color_array = new ArrayList<Integer>();
+
+				for(int c: colors) color_array.add(c);
+				bardataset.setColors(color_array);
 				entries.add(new BarEntry(cal, 0));
 				entries.add(new BarEntry(preferences.getInt("totalCal", 0), 1));
 				entries.add(new BarEntry(carbo, 2));

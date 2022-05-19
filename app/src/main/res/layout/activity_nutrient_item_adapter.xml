@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textColor="#E6B837"
+            android:textColor="#FFFFFF"
             android:textSize="25dp"
             android:textStyle="bold"
             android:fontFamily="@font/buddyfont"/>
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textColor="#E6B837"
+            android:textColor="#FFFFFF"
             android:textSize="25dp"
             android:textStyle="bold"
             android:fontFamily="@font/buddyfont"/>
