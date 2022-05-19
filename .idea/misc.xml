@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/activity_nutrient_add_dialog.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/activity_nutrient_dialog.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/activity_nutrient_item_adapter.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/foodsearch.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/fragment_bulk_up.xml" value="0.2695035460992908" />
+        <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/fragment_graph.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/fragment_info.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/fragment_lose_weight.xml" value="0.25" />
         <entry key="..\:/Users/AndroidProject/OpensourceProject/Diet_Buddy/app/src/main/res/layout/fragment_maintain_weight.xml" value="0.4466666666666667" />
