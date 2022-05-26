@@ -200,14 +200,14 @@ public class fragmentgraph extends Fragment {
 		if(preferences.getInt("totalCal", 0) < cal){
 			colors[0] = red_color;
 		}
-		if(preferences.getInt("carb", 0) < cal){
+		if(preferences.getInt("carb", 0) < carbo){
 			colors[2] = red_color;
 		}
 		if(preferences.getInt("protein", 0) < pro){
 			colors[4] = red_color;
 		}
 		if(preferences.getInt("fat", 0) < fat){
-			colors[4] = red_color;
+			colors[6] = red_color;
 		}
 		ArrayList<Integer> color_array = new ArrayList<Integer>();
 
