@@ -255,10 +255,10 @@ public class foodsearch extends AppCompatActivity {
 							ssl_salt.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_salt.get(a_position).toString()) * multiply * 100) / 100));
 							ssl_gram.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_gram.get(a_position).toString()) * multiply * 100) / 100));
 
-							int prefoodcal = (int)(Double.parseDouble(_cal) + Double.parseDouble(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), "0")));
-							int prefoodcarbo = (int)(Double.parseDouble(_carbo) + Double.parseDouble(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), "0")));
-							int prefoodpro = (int)(Double.parseDouble(_pro) + Double.parseDouble(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), "0")));
-							int prefoodfat = (int)(Double.parseDouble(_fat) + Double.parseDouble(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), "0")));
+							int prefoodcal = (int)(Double.parseDouble(_cal) + Double.parseDouble(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd) * multiply, "0")));
+							int prefoodcarbo = (int)(Double.parseDouble(_carbo) + Double.parseDouble(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd)* multiply, "0")));
+							int prefoodpro = (int)(Double.parseDouble(_pro) + Double.parseDouble(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd) * multiply, "0")));
+							int prefoodfat = (int)(Double.parseDouble(_fat) + Double.parseDouble(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd) * multiply, "0")));
 
 							editor.putString("foodint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), _title);
 							editor.putString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), String.valueOf(prefoodcal));

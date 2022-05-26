@@ -209,6 +209,7 @@ public class fragmentgraph extends Fragment {
 		if(preferences.getInt("fat", 0) < fat){
 			colors[6] = red_color;
 		}
+
 		ArrayList<Integer> color_array = new ArrayList<Integer>();
 
 		for(int c: colors) color_array.add(c);
@@ -241,6 +242,31 @@ public class fragmentgraph extends Fragment {
 		entries.add(new BarEntry(preferences.getInt("protein", 0), 5));
 		entries.add(new BarEntry(fat, 6));
 		entries.add(new BarEntry(preferences.getInt("fat", 0), 7));
+
+		int[] colors = {blue_color, Color.rgb(246,204,52),
+				blue_color, Color.rgb(246,204,52),
+				blue_color, Color.rgb(246,204,52),
+				blue_color, Color.rgb(246,204,52)};
+
+		if(preferences.getInt("totalCal", 0) < cal){
+			colors[0] = red_color;
+		}
+		if(preferences.getInt("carb", 0) < carbo){
+			colors[2] = red_color;
+		}
+		if(preferences.getInt("protein", 0) < pro){
+			colors[4] = red_color;
+		}
+		if(preferences.getInt("fat", 0) < fat){
+			colors[6] = red_color;
+		}
+		ArrayList<Integer> color_array = new ArrayList<Integer>();
+
+		for(int c: colors) color_array.add(c);
+		bardataset.setColors(color_array);
+		barChart.animateY(5000);
+		barChart.setDescription("");
+		barChart.getLegend().setEnabled(false);
 		barChart.invalidate();
 
 		editor.commit();
