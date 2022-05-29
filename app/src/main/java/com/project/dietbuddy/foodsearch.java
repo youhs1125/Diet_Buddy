@@ -147,14 +147,7 @@ public class foodsearch extends AppCompatActivity {
 			@Override
 			public void onItemClick(AdapterView<?> a_parent, View a_view, int a_position, long a_id) {
 
-/*				LinkedHashSet<String> default_set = new LinkedHashSet<String>();
-				LinkedHashSet<String> set = new LinkedHashSet<>();
-				LinkedHashSet<String> set_cal = new LinkedHashSet<>();
-				LinkedHashSet<String> set_carbo = new LinkedHashSet<>();
-				LinkedHashSet<String> set_pro = new LinkedHashSet<>();
-				LinkedHashSet<String> set_fat = new LinkedHashSet<>();
-				LinkedHashSet<String> set_salt = new LinkedHashSet<>();
-				LinkedHashSet<String> set_gram = new LinkedHashSet<>();*/
+
 
 				StringSettingList ssl = new StringSettingList();
 				StringSettingList ssl_cal = new StringSettingList();
@@ -206,14 +199,6 @@ public class foodsearch extends AppCompatActivity {
 							multiply = Double.parseDouble(input.getText().toString()) / Double.parseDouble(_gram);
 							System.out.println("곱해지는 값" + multiply);
 
-							/*list.addAll(preferences.getStringSet("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
-							list_cal.addAll(preferences.getStringSet("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
-							list_carbo.addAll(preferences.getStringSet("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
-							list_pro.addAll(preferences.getStringSet("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
-							list_fat.addAll(preferences.getStringSet("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
-							list_salt.addAll(preferences.getStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));
-							list_gram.addAll(preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), default_set));*/
-
 							if(!preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd),"").toString().equals(""))
 								ssl.fromJSONString(preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd),""));
 							if(!preferences.getString("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd),"").toString().equals(""))
@@ -229,23 +214,6 @@ public class foodsearch extends AppCompatActivity {
 							if(!preferences.getString("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd),"").toString().equals(""))
 								ssl_gram.fromJSONString(preferences.getString("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd),""));
 
-
-
-							//중복되는 set은 저장될 때 중복저장 안됨 따라서 Title + 값으로 해야함.
-							/*set.addAll(list);
-							set.add(searchlist.get(a_position).toString());
-							set_cal.addAll(list_cal);
-							set_cal.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_cal.get(a_position).toString()) * multiply * 100) / 100));
-							set_carbo.addAll(list_carbo);
-							set_carbo.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_carbo.get(a_position).toString()) * multiply * 100) / 100));
-							set_pro.addAll(list_pro);
-							set_pro.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_pro.get(a_position).toString()) * multiply * 100) / 100));
-							set_fat.addAll(list_fat);
-							set_fat.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_fat.get(a_position).toString()) * multiply * 100) / 100));
-							set_salt.addAll(list_salt);
-							set_salt.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_salt.get(a_position).toString()) * multiply * 100) / 100));
-							set_gram.addAll(list_gram);
-							set_gram.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_gram.get(a_position).toString()) * multiply * 100) / 100));*/
 
 							ssl.add(searchlist.get(a_position).toString());
 							ssl_cal.add(searchlist.get(a_position).toString() + Double.toString(Math.round(Double.parseDouble(searchlist_cal.get(a_position).toString()) * multiply * 100) / 100));
@@ -268,13 +236,6 @@ public class foodsearch extends AppCompatActivity {
 							editor.putString("foodsaltint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), _salt);
 							editor.putString("foodgramint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), _gram);
 
-/*							editor.putStringSet("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set);
-							editor.putStringSet("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_cal);
-							editor.putStringSet("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_carbo);
-							editor.putStringSet("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_pro);
-							editor.putStringSet("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_fat);
-							editor.putStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_salt);
-							editor.putStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd), set_gram);*/
 
 							System.out.println("sslPUTSTRING::"+ssl.toString());
 							editor.putString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(dd),ssl.toString());
@@ -296,157 +257,7 @@ public class foodsearch extends AppCompatActivity {
 		});
 	}
 
-	/*LinkedHashSet<String> getXmlData(){
-		Intent intent = getIntent();
-		StringBuffer buffer = new StringBuffer();
-		String str = intent.getStringExtra("searchFor");
-		System.out.println(str);
 
-		LinkedHashSet<String> set = new LinkedHashSet<>();
-		String food_name = "";
-		String pre_food_name = "";
-
-		int start_num = 1;
-		int end_num = start_num + 998;
-
-		//for(int i = 1; i <= 5; i++) {
-		String queryUrl = "https://openapi.foodsafetykorea.go.kr/api/" + key + "/I2790/xml/" + start_num + "/" + end_num + "/DESC_KOR=" + str;
-		try {
-			URL url = new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
-			InputStream is = url.openStream(); //url위치로 입력스트림 연결
-
-			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();//xml파싱을 위한
-			XmlPullParser xpp = factory.newPullParser();
-			xpp.setInput(new InputStreamReader(is, "UTF-8")); //inputstream 으로부터 xml 입력받기
-
-			String tag;
-
-			xpp.next();
-			int eventType = xpp.getEventType();
-			while (eventType != XmlPullParser.END_DOCUMENT) {
-				switch (eventType) {
-					case XmlPullParser.START_DOCUMENT:
-						buffer.append("파싱 시작...\n\n");
-						break;
-
-					case XmlPullParser.START_TAG:
-						tag = xpp.getName();//테그 이름 얻어오기
-						if (tag.contains("row id")) ;// 첫번째 검색결과
-
-						else if(tag.equals("DESC_KOR")){
-							xpp.next();
-							buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
-							buffer.append("\n"); //줄바꿈 문자 추가
-							food_name = xpp.getText();
-						}
-						else if (tag.equals("NUTR_CONT3")) {
-							buffer.append("단백질 : ");
-							xpp.next();
-							buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
-							buffer.append("\n"); //줄바꿈 문자 추가
-							if(xpp.getText() == null){
-								searchlist_pro.add("0");
-							}
-							else {
-								searchlist_pro.add(xpp.getText());
-							}
-						} else if (tag.equals("NUTR_CONT2")) {
-							buffer.append("탄수화물 : ");
-							xpp.next();
-							buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
-							buffer.append("\n");//줄바꿈 문자 추가
-							if(xpp.getText() == null){
-								searchlist_carbo.add("0");
-							}
-							else {
-								searchlist_carbo.add(xpp.getText());
-							}
-						} else if (tag.equals("NUTR_CONT1")) {
-							buffer.append("칼로리 :");
-							xpp.next();
-							buffer.append(xpp.getText());//description 요소의 TEXT 읽어와서 문자열버퍼에 추가
-							buffer.append("\n");//줄바꿈 문자 추가
-							if(xpp.getText() == null){
-								searchlist_cal.add("0");
-							}
-							else {
-								searchlist_cal.add(xpp.getText());
-							}
-						}
-						else if (tag.equals("NUTR_CONT6")) {
-							buffer.append("나트륨 :");
-							xpp.next();
-							buffer.append(xpp.getText());//telephone 요소의 TEXT 읽어와서 문자열버퍼에 추가
-							buffer.append("\n");//줄바꿈 문자 추가
-							if (xpp.getText() == null) {
-								searchlist_salt.add("0");
-							} else {
-								//double salt = Double.parseDouble(xpp.getText().toString()) / 1000;
-								searchlist_salt.add(xpp.getText());
-							}
-						}
-						else if (tag.equals("NUTR_CONT4")) {
-							buffer.append("지방 :");
-							xpp.next();
-							buffer.append(xpp.getText());//telephone 요소의 TEXT 읽어와서 문자열버퍼에 추가
-							buffer.append("\n");//줄바꿈 문자 추가
-							if(xpp.getText() == null){
-								System.out.println("순살 닭가슴살의 fat 0");
-								searchlist_fat.add("0");
-							}
-							else {
-								System.out.println("순살 닭가슴살의 fat" + xpp.getText().toString());
-								searchlist_fat.add(xpp.getText());
-							}
-						}
-						else if (tag.equals("SERVING_SIZE")) {
-							//buffer.append("용량 :");
-							xpp.next();
-							buffer.append(xpp.getText());//telephone 요소의 TEXT 읽어와서 문자열버퍼에 추가
-							buffer.append("\n");//줄바꿈 문자 추가
-							if(xpp.getText() == null){
-								searchlist_gram.add("0");
-							}
-							else {
-								searchlist_gram.add(xpp.getText());
-							}
-						}
-						if(!food_name.equals("")) {
-							if(!food_name.equals(pre_food_name)) {
-								//searchlist.add(food_name + "\n" + searchlist_cal.get(searchlist_cal.size() - 1) + "kcal" + " " + searchlist_carbo.get(searchlist_carbo.size() - 1) + "g" + " " + searchlist_pro.get(searchlist_pro.size() - 1) + "g" + " " + searchlist_fat.get(searchlist_fat.size() - 1) + "g" + " " + searchlist_salt.get(searchlist_salt.size() - 1)+ "g");
-								searchlist.add(food_name + ",");
-								searchListNewLayout.add(new NutrientItem(food_name, searchlist_cal.get(searchlist_cal.size() - 1) + "Kcal"));
-							}
-							pre_food_name = food_name;
-						}
-						break;
-
-					case XmlPullParser.TEXT:
-						break;
-
-					case XmlPullParser.END_TAG:
-						tag = xpp.getName(); //테그 이름 얻어오기
-
-						if (tag.contains("row id")) buffer.append("\n");// 첫번째 검색결과종료..줄바꿈
-						break;
-				}
-				eventType = xpp.next();
-			}
-			set.addAll(searchlist);
-			if(!searchlist.isEmpty()){
-				return set;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		start_num = start_num + 1000;
-		//}
-
-		buffer.append("파싱 끝\n");
-		return null;//StringBuffer 문자열 객체 반환
-
-	}*///getXmlData method....
 
 	StringSettingList getXmlData(){
 		Intent intent = getIntent();
