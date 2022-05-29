@@ -128,6 +128,9 @@ public class fragmentinfo extends Fragment{
 				final String[] strArr = new String[]{"1.거의 운동 하지 않음","2.가벼운 활동(주 1~2회)","3.보통 수준(주 3~5)",
 						"4.적극적으로 운동(주 6~7회)","5.고강도로 운동(주 6~7회)"};
 
+				editor.putInt("acti",0);
+				editor.commit();
+				dialogBut.setText("1번");
 
 				dlg.setSingleChoiceItems(strArr,0,new DialogInterface.OnClickListener(){
 					@Override
