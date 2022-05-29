@@ -107,8 +107,8 @@ public class fragmentrecommand extends Fragment implements OnMapReadyCallback, R
 
 					Calendar calendar3 = Calendar.getInstance();
 					calendar3.setTimeInMillis(System.currentTimeMillis());
-					calendar3.set(Calendar.HOUR_OF_DAY, 17);
-					calendar3.set(Calendar.MINUTE, 50);
+					calendar3.set(Calendar.HOUR_OF_DAY, 18);
+					calendar3.set(Calendar.MINUTE, 3);
 
 					Intent notifyIntent3 = new Intent(getActivity(), MyReceiver.class);
 					PendingIntent pendingIntent3 = PendingIntent.getBroadcast

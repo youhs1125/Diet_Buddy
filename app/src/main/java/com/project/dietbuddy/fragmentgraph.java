@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,6 +29,9 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -294,7 +298,7 @@ public class fragmentgraph extends Fragment {
 		//datePickerDialog.setMessage("메시지");
 		datePickerDialog.show();
 	}
-	void makeList(){
+	void makeList() {
 /*		list = new ArrayList<>();
 		list_cal = new ArrayList<>();
 		list_carbo = new ArrayList<>();
@@ -328,15 +332,15 @@ public class fragmentgraph extends Fragment {
 			list_gram.addAll(preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));*/
 
 		//System.out.println("food::"+preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString());
-		if(!preferences.getString("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString().equals("")){
+		if (!preferences.getString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals("")) {
 
-			ssl.fromJSONString(preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
-			ssl_cal.fromJSONString(preferences.getString("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
-			ssl_carbo.fromJSONString(preferences.getString("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
-			ssl_pro.fromJSONString(preferences.getString("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
-			ssl_fat.fromJSONString(preferences.getString("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
-			ssl_salt.fromJSONString(preferences.getString("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
-			ssl_gram.fromJSONString(preferences.getString("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
+			ssl.fromJSONString(preferences.getString("food" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+			ssl_cal.fromJSONString(preferences.getString("foodcal" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+			ssl_carbo.fromJSONString(preferences.getString("foodcarbo" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+			ssl_pro.fromJSONString(preferences.getString("foodpro" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+			ssl_fat.fromJSONString(preferences.getString("foodfat" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+			ssl_salt.fromJSONString(preferences.getString("foodsalt" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
+			ssl_gram.fromJSONString(preferences.getString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
 
 			int counter = 0;
 			System.out.println("ssl content::" + ssl.toString());
@@ -346,26 +350,24 @@ public class fragmentgraph extends Fragment {
 			System.out.println("ssl_fat content::" + ssl_fat.toString());
 			System.out.println("ssl_salt content::" + ssl_salt.toString());
 			System.out.println("ssl_gram content::" + ssl_gram.toString());
-			for(String i : ssl){
+			for (String i : ssl) {
 				String[] title = i.split(",");
 
 				String[] gram = ssl_gram.get(counter).split(",");
-				System.out.println("gram"+gram[1]);
+				System.out.println("gram" + gram[1]);
 				items.add(new NutrientItem(title[0], gram[1] + "g"));
 				counter++;
 			}
-		}
-		else{
+		} else {
 			listView.setBackgroundResource(R.drawable.listblank);
 		}
 		listView.invalidateViews();
 		listView.setAdapter(adapter);
-		if(ssl == null){
+		if (ssl == null) {
 			listView.setBackgroundResource(R.drawable.listblank);
 			listView.invalidateViews();
-		}
-		else{
-			listView.setBackgroundColor(Color.argb(0, 235,239,242));
+		} else {
+			listView.setBackgroundColor(Color.argb(0, 235, 239, 242));
 			listView.invalidateViews();
 		}
 
@@ -391,10 +393,9 @@ public class fragmentgraph extends Fragment {
 					public void onClick(View v) {
 						if (input.getText().toString().equals("") || Integer.parseInt(input.getText().toString()) <= 0 || title.getText().toString().equals("") ||
 								inputCarb.getText().toString().equals("") || Integer.parseInt(inputCarb.getText().toString()) <= 0 || inputProtein.getText().toString().equals("") || Integer.parseInt(inputProtein.getText().toString()) <= 0 ||
-								inputFat.getText().toString().equals("") || Integer.parseInt(inputFat.getText().toString()) <= 0 ) {
+								inputFat.getText().toString().equals("") || Integer.parseInt(inputFat.getText().toString()) <= 0) {
 							Toast.makeText(getActivity(), "입력 값이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
-						}
-						else {
+						} else {
 							if (!preferences.getString("food" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
 								ssl.fromJSONString(preferences.getString("food" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
 							if (!preferences.getString("foodcal" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
@@ -410,16 +411,16 @@ public class fragmentgraph extends Fragment {
 							if (!preferences.getString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
 								ssl_gram.fromJSONString(preferences.getString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ""));
 
-							title.setText(title.getText().toString()+",");
+							title.setText(title.getText().toString() + ",");
 							ssl.add(title.getText().toString());
-							ssl_cal.add(title.getText().toString() + Double.parseDouble(inputCarb.getText().toString())*4 + Double.parseDouble(inputProtein.getText().toString())*4+ Double.parseDouble(inputFat.getText().toString())*9);
+							ssl_cal.add(title.getText().toString() + Double.parseDouble(inputCarb.getText().toString()) * 4 + Double.parseDouble(inputProtein.getText().toString()) * 4 + Double.parseDouble(inputFat.getText().toString()) * 9);
 							ssl_carbo.add(title.getText().toString() + Double.parseDouble(inputCarb.getText().toString()));
 							ssl_pro.add(title.getText().toString() + Double.parseDouble(inputProtein.getText().toString()));
 							ssl_fat.add(title.getText().toString() + Double.parseDouble(inputFat.getText().toString()));
 							ssl_salt.add(title.getText().toString() + 0);
 							ssl_gram.add(title.getText().toString() + Double.parseDouble(input.getText().toString()));
 
-							int prefoodcal = (int) (Double.parseDouble(inputCarb.getText().toString())*4 + Double.parseDouble(inputProtein.getText().toString())*4+ Double.parseDouble(inputFat.getText().toString())*9 + Double.parseDouble(preferences.getString("foodcalint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
+							int prefoodcal = (int) (Double.parseDouble(inputCarb.getText().toString()) * 4 + Double.parseDouble(inputProtein.getText().toString()) * 4 + Double.parseDouble(inputFat.getText().toString()) * 9 + Double.parseDouble(preferences.getString("foodcalint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
 							int prefoodcarbo = (int) (Double.parseDouble(inputCarb.getText().toString()) + Double.parseDouble(preferences.getString("foodcarboint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
 							int prefoodpro = (int) (Double.parseDouble(inputProtein.getText().toString()) + Double.parseDouble(preferences.getString("foodproint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
 							int prefoodfat = (int) (Double.parseDouble(inputFat.getText().toString()) + Double.parseDouble(preferences.getString("foodfatint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0")));
@@ -450,6 +451,82 @@ public class fragmentgraph extends Fragment {
 						}
 					}
 				});
+			}
+		});
+
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+				final AlertDialog.Builder di = new AlertDialog.Builder(getActivity());
+				LayoutInflater inflater = getLayoutInflater();
+
+				final View dialogView = inflater.inflate(R.layout.activity_delete_list, null);
+				di.setView(dialogView);
+
+				di.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+
+						ssl.remove(position);
+						ssl_cal.remove(position);
+						ssl_carbo.remove(position);
+						ssl_pro.remove(position);
+						ssl_fat.remove(position);
+						ssl_salt.remove(position);
+						ssl_gram.remove(position);
+
+						items.remove(position);
+
+						LinkedHashSet<String> set = new LinkedHashSet<>();
+						LinkedHashSet<String> set_cal = new LinkedHashSet<>();
+						LinkedHashSet<String> set_carbo = new LinkedHashSet<>();
+						LinkedHashSet<String> set_pro = new LinkedHashSet<>();
+						LinkedHashSet<String> set_fat = new LinkedHashSet<>();
+						LinkedHashSet<String> set_salt = new LinkedHashSet<>();
+						LinkedHashSet<String> set_gram = new LinkedHashSet<>();
+
+
+						editor.putString("foodint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl.toString());
+						editor.putString("foodcalint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_cal.toString());
+						editor.putString("foodcarboint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_carbo.toString());
+						editor.putString("foodproint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_pro.toString());
+						editor.putString("foodfatint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_fat.toString());
+						editor.putString("foodsaltint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "0");
+						editor.putString("foodgramint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_gram.toString());
+
+
+						editor.putString("food" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl.toString());
+						editor.putString("foodcal" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_cal.toString());
+						editor.putString("foodcarbo" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_carbo.toString());
+						editor.putString("foodpro" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_pro.toString());
+						editor.putString("foodfat" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_fat.toString());
+						editor.putString("foodsalt" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_salt.toString());
+						editor.putString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_gram.toString());
+
+						editor.commit();
+						set.addAll(ssl);
+						set_cal.addAll(ssl_cal);
+						set_carbo.addAll(ssl_carbo);
+						set_pro.addAll(ssl_pro);
+						set_fat.addAll(ssl_fat);
+						set_salt.addAll(ssl_salt);
+						set_gram.addAll(ssl_gram);
+
+						if (ssl.isEmpty()) {
+							listView.setBackgroundResource(R.drawable.listblank);
+							listView.invalidateViews();
+						} else {
+							listView.setBackgroundColor(Color.rgb(235, 239, 242));
+							listView.invalidateViews();
+						}
+						adapter.notifyDataSetInvalidated();
+						alertDialog.dismiss();
+						barChart.invalidate();
+					}
+				});
+				alertDialog = di.create();
+				di.show();
 			}
 		});
 	}
