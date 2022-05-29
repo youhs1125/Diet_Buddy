@@ -40,13 +40,6 @@ public class fragmentgraph extends Fragment {
 	ListView listView;
 	TextView calendar_tv;
 
-/*	ArrayList<String> list;
-	ArrayList<String> list_cal;
-	ArrayList<String> list_carbo;
-	ArrayList<String> list_fat;
-	ArrayList<String> list_pro;
-	ArrayList<String> list_salt;
-	ArrayList<String> list_gram;*/
 	ArrayList<NutrientItem> items;
 	ArrayAdapter adapter;
 
@@ -116,14 +109,6 @@ public class fragmentgraph extends Fragment {
 
 		day_reset = preferences.getInt("day", 0);
 		if (day != day_reset) {
-
-/*			LinkedHashSet<String> set = new LinkedHashSet<String>();
-			editor.putStringSet("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
-			editor.putStringSet("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
-			editor.putStringSet("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
-			editor.putStringSet("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
-			editor.putStringSet("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);
-			editor.putStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), set);*/
 
 			StringSettingList ssl = new StringSettingList();
 
@@ -295,15 +280,6 @@ public class fragmentgraph extends Fragment {
 		datePickerDialog.show();
 	}
 	void makeList(){
-/*		list = new ArrayList<>();
-		list_cal = new ArrayList<>();
-		list_carbo = new ArrayList<>();
-		list_fat = new ArrayList<>();
-		list_pro = new ArrayList<>();
-		list_salt = new ArrayList<>();
-		list_gram = new ArrayList<>();
-
- */
 		System.out.println("makeList호출!!");
 		ssl = new StringSettingList();
 		ssl_cal = new StringSettingList();
@@ -318,16 +294,6 @@ public class fragmentgraph extends Fragment {
 
 		adapter = new NutrientItemAdapter(getActivity(), R.layout.activity_nutrient_item_adapter, items);
 
-/*		if (preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null) != null) {
-			list.addAll(preferences.getStringSet("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
-			list_cal.addAll(preferences.getStringSet("foodcal"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
-			list_carbo.addAll(preferences.getStringSet("foodcarbo"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
-			list_pro.addAll(preferences.getStringSet("foodpro"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
-			list_fat.addAll(preferences.getStringSet("foodfat"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
-			list_salt.addAll(preferences.getStringSet("foodsalt"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));
-			list_gram.addAll(preferences.getStringSet("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), null));*/
-
-		//System.out.println("food::"+preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString());
 		if(!preferences.getString("foodgram"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d),"").toString().equals("")){
 
 			ssl.fromJSONString(preferences.getString("food"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), ""));
