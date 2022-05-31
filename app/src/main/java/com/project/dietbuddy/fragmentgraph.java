@@ -169,10 +169,25 @@ public class fragmentgraph extends Fragment {
 		barChart = (BarChart) view.findViewById(R.id.barchart);
 
 		entries = new ArrayList<>();
-		cal = Integer.parseInt(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-		carbo = Integer.parseInt(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-		pro = Integer.parseInt(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-		fat = Integer.parseInt(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+
+		String sCal = preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
+		String sCarbo = preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
+		String sPro = preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
+		String sFat = preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
+		sCal = sCal.replace("[]","0");
+		sCarbo = sCarbo.replace("[]","0");
+		sPro = sPro.replace("[]","0");
+		sFat = sFat.replace("[]","0");
+
+		cal = Integer.parseInt(sCal);
+		carbo = Integer.parseInt(sCarbo);
+		pro = Integer.parseInt(sPro);
+		fat = Integer.parseInt(sFat);
+
+//		cal = Integer.parseInt(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+//		carbo = Integer.parseInt(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+//		pro = Integer.parseInt(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+//		fat = Integer.parseInt(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
 		entries.add(new BarEntry(cal, 0));
 		entries.add(new BarEntry(preferences.getInt("totalCal", 0), 1));
 		entries.add(new BarEntry(carbo, 2));
@@ -226,10 +241,24 @@ public class fragmentgraph extends Fragment {
 	}
 
 	void showBarChart(){
-		cal = Integer.parseInt(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-		carbo = Integer.parseInt(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-		pro = Integer.parseInt(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
-		fat = Integer.parseInt(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+		String sCal = preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
+		String sCarbo = preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
+		String sPro = preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
+		String sFat = preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0");
+		sCal = sCal.replace("[]","0");
+		sCarbo = sCarbo.replace("[]","0");
+		sPro = sPro.replace("[]","0");
+		sFat = sFat.replace("[]","0");
+
+		cal = Integer.parseInt(sCal);
+		carbo = Integer.parseInt(sCarbo);
+		pro = Integer.parseInt(sPro);
+		fat = Integer.parseInt(sFat);
+
+//		cal = Integer.parseInt(preferences.getString("foodcalint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+//		carbo = Integer.parseInt(preferences.getString("foodcarboint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+//		pro = Integer.parseInt(preferences.getString("foodproint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
+//		fat = Integer.parseInt(preferences.getString("foodfatint"+Integer.valueOf(y)+Integer.valueOf(m)+Integer.valueOf(d), "0"));
 		bardataset.removeEntry(0);
 		bardataset.removeEntry(1);
 		bardataset.removeEntry(2);
@@ -391,9 +420,9 @@ public class fragmentgraph extends Fragment {
 				add.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						if (input.getText().toString().equals("") || Integer.parseInt(input.getText().toString()) <= 0 || title.getText().toString().equals("") ||
-								inputCarb.getText().toString().equals("") || Integer.parseInt(inputCarb.getText().toString()) <= 0 || inputProtein.getText().toString().equals("") || Integer.parseInt(inputProtein.getText().toString()) <= 0 ||
-								inputFat.getText().toString().equals("") || Integer.parseInt(inputFat.getText().toString()) <= 0) {
+						if (input.getText().toString().equals("") || Integer.parseInt(input.getText().toString()) < 0 || title.getText().toString().equals("") ||
+								inputCarb.getText().toString().equals("") || Integer.parseInt(inputCarb.getText().toString()) < 0 || inputProtein.getText().toString().equals("") || Integer.parseInt(inputProtein.getText().toString()) <= 0 ||
+								inputFat.getText().toString().equals("") || Integer.parseInt(inputFat.getText().toString()) < 0) {
 							Toast.makeText(getActivity(), "입력 값이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
 						} else {
 							if (!preferences.getString("food" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), "").toString().equals(""))
@@ -478,13 +507,6 @@ public class fragmentgraph extends Fragment {
 
 						items.remove(position);
 
-						LinkedHashSet<String> set = new LinkedHashSet<>();
-						LinkedHashSet<String> set_cal = new LinkedHashSet<>();
-						LinkedHashSet<String> set_carbo = new LinkedHashSet<>();
-						LinkedHashSet<String> set_pro = new LinkedHashSet<>();
-						LinkedHashSet<String> set_fat = new LinkedHashSet<>();
-						LinkedHashSet<String> set_salt = new LinkedHashSet<>();
-						LinkedHashSet<String> set_gram = new LinkedHashSet<>();
 
 
 						editor.putString("foodint" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl.toString());
@@ -505,13 +527,6 @@ public class fragmentgraph extends Fragment {
 						editor.putString("foodgram" + Integer.valueOf(y) + Integer.valueOf(m) + Integer.valueOf(d), ssl_gram.toString());
 
 						editor.commit();
-						set.addAll(ssl);
-						set_cal.addAll(ssl_cal);
-						set_carbo.addAll(ssl_carbo);
-						set_pro.addAll(ssl_pro);
-						set_fat.addAll(ssl_fat);
-						set_salt.addAll(ssl_salt);
-						set_gram.addAll(ssl_gram);
 
 						if (ssl.isEmpty()) {
 							listView.setBackgroundResource(R.drawable.listblank);
